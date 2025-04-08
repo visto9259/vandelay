@@ -1,0 +1,29 @@
+<?php $this->headTitle('Home'); ?>
+
+<div class="row">
+    <div class="col">
+        <h2>Application Installations</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Installation Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Version</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->response['data'] as $item) : ?>
+            <tr>
+                <th scope="row"><a href=""><?= $item['id']; ?></a></th>
+                <td><?= $item['installDate']?></td>
+                <td><?= $item['status']; ?></td>
+                <td><?= $item['version']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <a href="<?= $this->url('apps');?>" class="btn btn-primary">Back</a>
+    </div>
+</div>
+

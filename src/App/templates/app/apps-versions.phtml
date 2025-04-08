@@ -1,0 +1,31 @@
+<?php $this->headTitle('Home'); ?>
+
+<div class="row">
+    <div class="col">
+        <h2>Application Versions</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Latest</th>
+                <th scope="col">Release</th>
+                <th scope="col">Status</th>
+                <th scope="col">Version</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->response['data'] as $item) : ?>
+            <tr>
+                <th scope="row"><?= $item['appName']; ?></th>
+                <td><?= $item['latest'] === true ? 'True' : 'False'; ?></td>
+                <td><?= $item['release']; ?></td>
+                <td><?= $item['status']; ?></td>
+                <td><?= $item['version']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <a href="<?= $this->url('apps');?>" class="btn btn-primary">Back</a>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+<?php
+use Chorus\Entities\Device;
+
+//$this->headTitle('Details');
+/** @var Device $device */
+$device = $this->device;
+?>
+
+<div class="row">
+    <div class="col">
+        <h2><?= $device->getSerialNumber();?></h2>
+    </div>
+</div>
+

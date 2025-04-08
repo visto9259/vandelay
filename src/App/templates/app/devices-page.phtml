@@ -1,0 +1,32 @@
+<?php
+use Chorus\Entities\Device;
+
+$this->headTitle('Home'); ?>
+
+<div class="row">
+    <div class="col">
+        <h2>Available Devices</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Serial Number</th>
+                <th scope="col">Model</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->devices as $device) : ?>
+            <?php /** @var Device $device */ ?>
+            <tr>
+                <th scope="row"><a href="<?= $this->url('devices.details', [
+                        'deviceId' =>  $device->getId(),
+                    ]);?>"><?= $device->getSerialNumber(); ?></a></th>
+                <td><?= $device->getModel(); ?></td>
+                <td><?= $device->getStatus()->getStatus(); ?></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
