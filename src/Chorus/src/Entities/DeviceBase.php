@@ -44,5 +44,12 @@ class DeviceBase
         $this->status = $status;
         return $this;
     }
-
+    public function toArray(): array
+    {
+        return [
+            'id'           => $this->getId(),
+            'serialNumber' => $this->getSerialNumber(),
+            'status'       => $this->getStatus()->toArray(),
+        ];
+    }
 }

@@ -44,4 +44,12 @@ class Group
         $this->name = $name;
         return $this;
     }
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
+    }
 }

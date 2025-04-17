@@ -34,13 +34,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
-                Handler\ConnectHandler::class  => Handler\ConnectHandlerFactory::class,
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-                Handler\AppsHandler::class => Handler\AppsHandlerFactory::class,
-                Handler\AppsVersionHandler::class => Handler\AppsHandlerFactory::class,
-                Handler\AppsInstallationsHandler::class => Handler\AppsHandlerFactory::class,
-                Handler\DevicesHandler::class => Handler\HandlerFactory::class,
-                Handler\DeviceDetailsHandler::class => Handler\HandlerFactory::class,
             ],
         ];
     }

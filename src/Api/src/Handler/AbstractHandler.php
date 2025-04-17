@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Handler;
+namespace Api\Handler;
 
 use Chorus\Service\AppService;
 use Chorus\Service\ChorusService;
@@ -15,8 +15,7 @@ abstract readonly class AbstractHandler implements RequestHandlerInterface
 {
 
     public function __construct(
-        protected TemplateRendererInterface $template,
-        protected ChorusService             $chorusService,
+        protected ChorusService $chorusService,
     ) {
     }
 }

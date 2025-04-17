@@ -88,5 +88,16 @@ class DeviceAddress
         $this->zip = $zip;
         return $this;
     }
-
+    public function toArray(): array
+    {
+        return [
+            'city' => $this->getCity(),
+            'country' => $this->getCountry(),
+            'countrySubdivision' => $this->getCountrySubdivision(),
+            'freeFormAddress' => $this->getFreeFormAddress(),
+            'streetName' => $this->getStreetName(),
+            'streetNumber' => $this->getStreetNumber(),
+            'zip' => $this->getZip(),
+        ];
+    }
 }

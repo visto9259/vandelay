@@ -56,4 +56,15 @@ class Device extends DeviceBase
         $this->model = $model;
         return $this;
     }
+    public function toArray(): array
+    {
+        $data = parent::toArray();
+        return [
+            ...$data,
+            'bootDate' => $this->bootDate,
+            'color' => $this->color,
+            'model' => $this->model,
+            'address' => $this->address->toArray(),
+        ];
+    }
 }

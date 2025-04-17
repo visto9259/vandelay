@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Handler;
+namespace Api\Handler;
 
 use Chorus\Service\ChorusService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -18,7 +18,6 @@ class HandlerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         return new $requestedName(
-            $container->get(TemplateRendererInterface::class),
             $container->get(ChorusService::class),
         );
     }

@@ -11,12 +11,20 @@ final class ChorusService
 {
     protected ?AppService $appService = null;
     protected ?DeviceService $deviceService = null;
-    protected ?tokenService $tokenService = null;
-    protected ?groupService $groupService = null;
+    protected ?TokenService $tokenService = null;
+    protected ?GroupService $groupService = null;
 
     public function __construct(
         private readonly ChorusOptions $options
     ) {
+    }
+
+    public function getAppService(): AppService
+    {
+        if (!$this->appService) {
+            $this->appService = new AppService($this->options, $this->getTokenService());
+        }
+        return $this->appService;
     }
 
     public function getTokenService(): TokenService

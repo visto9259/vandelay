@@ -21,4 +21,9 @@ class DeviceService extends AbstractService
         return new Device($response['data']);
     }
 
+    public function getDeviceTelemetry(string $deviceId): Device
+    {
+        $response = $this->getRequest('/api/v1/devices/' . $deviceId . '/telemetry');
+        return new Device($response['data']);
+    }
 }

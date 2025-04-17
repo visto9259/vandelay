@@ -39,11 +39,9 @@ use Psr\Container\ContainerInterface;
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
-    $app->get('/apps', App\Handler\AppsHandler::class, 'apps');
-    $app->get('/apps/{appId}/versions', App\Handler\AppsVersionHandler::class, 'apps-versions');
-    $app->get('/apps/{appId}/installations', App\Handler\AppsInstallationsHandler::class, 'apps-installations');
-    $app->any('/connect', App\Handler\ConnectHandler::class, 'connect');
     $app->get('/api/version', \Api\Handler\VersionHandler::class, 'api.version');
-    $app->get('/devices', App\Handler\DevicesHandler::class, 'devices');
-    $app->get('/devices/{deviceId}', App\Handler\DeviceDetailsHandler::class, 'devices.details');
+    $app->route('/api/groups', Api\Handler\GroupHandler::class)->setName('api.groups');
+    $app->get('/api/devices', Api\Handler\DevicesHandler::class)->setName('api.devices');
+    $app->get('/api/device/{deviceId}', Api\Handler\DeviceHandler::class)->setName('api.device');
+    $app->get('/api/device/{deviceId}/telemetry', Api\Handler\DeviceTelemetryHandler::class)->setName('api.device.telemetry');
 };

@@ -4,110 +4,48 @@ declare(strict_types=1);
 
 namespace Chorus\Service;
 
+use Chorus\Entities\Application;
+use Chorus\Entities\ApplicationVersion;
+use Chorus\Entities\Installation;
 use Chorus\Options\ChorusOptions;
 use Chorus\Token\TokenService;
 use Exception;
 use Psr\Cache\InvalidArgumentException;
 
-readonly class AppService
+class AppService extends AbstractService
 {
-    public function __construct(
-        private ChorusOptions $options,
-        private TokenService  $tokenService,
-    ) {
-    }
-
     /**
      * @throws InvalidArgumentException
      * @throws Exception
+     * @return array<Application>
      */
     public function getApps(): array
     {
-        $token = $this->tokenService->getBearerToken();
-        if (null === $token) {
-            return [];
+        $response = $this->getRequest('/api/v1/applications');
+        $apps = [];
+        foreach ($response['data'] as $app) {
+            $apps[] = new Application($app);
         }
-        $headers = [
-            'Authorization: Bearer ' . $token
-            // 'Content-Type: application/x-www-form-urlencoded',
-        ];
-        $ch = curl_init();
-        if (!$ch) {
-            throw new Exception('Cannot create curl handle');
-        }
-        curl_setopt($ch, CURLOPT_URL, $this->options->getBaseUrl() . '/api/v1/applications');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        if (false === $response) {
-            $error = curl_error($ch);
-            throw new Exception($error);
-        }
-        curl_close($ch);
-        $response = json_decode($response, true);
-
-        return [
-            'response' => $response,
-        ];
+        return $apps;
     }
 
+    /**
+     * @return array<ApplicationVersion>
+     * @throws InvalidArgumentException
+     */
     public function getAppVersions(string $appId): array
     {
-        $token = $this->tokenService->getBearerToken();
-        if (null === $token) {
-            return [];
-        }
-        $headers = [
-            'Authorization: Bearer ' . $token
-            // 'Content-Type: application/x-www-form-urlencoded',
-        ];
-        $ch = curl_init();
-        if (!$ch) {
-            throw new Exception('Cannot create curl handle');
-        }
-        curl_setopt($ch, CURLOPT_URL, $this->options->getBaseUrl() . '/api/v1/applications/' . $appId .'/versions');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        if (false === $response) {
-            $error = curl_error($ch);
-            throw new Exception($error);
-        }
-        curl_close($ch);
-        $response = json_decode($response, true);
-
-        return [
-            'response' => $response,
-        ];
+        $response = $this->getRequest('/api/v1/applications/' . $appId . '/versions');
+        return array_map(function ($version) {
+            return new ApplicationVersion($version);
+        }, $response['data']);
     }
 
     public function getAppInstallations(string $appId): array
     {
-        $token = $this->tokenService->getBearerToken();
-        if (null === $token) {
-            return [];
-        }
-        $headers = [
-            'Authorization: Bearer ' . $token
-            // 'Content-Type: application/x-www-form-urlencoded',
-        ];
-        $ch = curl_init();
-        if (!$ch) {
-            throw new Exception('Cannot create curl handle');
-        }
-        curl_setopt($ch, CURLOPT_URL, $this->options->getBaseUrl() . '/api/v1/applications/' . $appId .'/installations');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        if (false === $response) {
-            $error = curl_error($ch);
-            throw new Exception($error);
-        }
-        curl_close($ch);
-        $response = json_decode($response, true);
-
-        return [
-            'response' => $response,
-        ];
+        $response = $this->getRequest('/api/v1/applications/' . $appId . '/installations');
+        return array_map(function ($installation) {
+            return new Installation($installation);
+        }, $response['data']);
     }
 }

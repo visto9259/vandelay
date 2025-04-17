@@ -58,13 +58,14 @@
         "laminas/laminas-servicemanager": "^3.22",
         "laminas/laminas-stdlib": "^3.20",
         "mezzio/mezzio": "^3.20.1",
+        "mezzio/mezzio-cors": "^1.13",
         "mezzio/mezzio-fastroute": "^3.11.0",
         "mezzio/mezzio-helpers": "^5.17",
         "mezzio/mezzio-laminasviewrenderer": "^2.15",
         "symfony/cache": "^7.2"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~2.5.0",
+        "laminas/laminas-coding-standard": "~3.0.0",
         "laminas/laminas-development-mode": "^3.13.0",
         "mezzio/mezzio-tooling": "^2.10.1",
         "phpunit/phpunit": "^10.5.45",
@@ -110,7 +111,7 @@
         "cs-fix": "phpcbf",
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "php -S 0.0.0.0:8080 -t public/"
+            "php -S 0.0.0.0:8081 -t public/"
         ],
         "static-analysis": "psalm --stats",
         "static-analysis-update-baseline": "psalm --stats --update-baseline",

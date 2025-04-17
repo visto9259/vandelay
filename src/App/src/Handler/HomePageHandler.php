@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use Chorus\Service\AppService;
+use Chorus\Options\ChorusOptions;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,13 +15,15 @@ final readonly class HomePageHandler implements RequestHandlerInterface
 {
     public function __construct(
         private TemplateRendererInterface $template,
-        private AppService                $appService,
+        private ChorusOptions $chorusOptions,
     ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $data = $this->appService->getApps();
-        return new HtmlResponse($this->template->render('app::home-page', $data));
+        return new HtmlResponse($this->template->render('app::home-page', [
+            'clientId' => $this->chorusOptions->getClientId(),
+            'baseUrl'  => $this->chorusOptions->getBaseUrl(),
+        ]));
     }
 }

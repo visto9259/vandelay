@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
+use Mezzio\Cors\Middleware\CorsMiddleware;
 use Mezzio\Handler\NotFoundHandler;
 use Mezzio\Helper\ServerUrlMiddleware;
 use Mezzio\Helper\UrlHelperMiddleware;
@@ -45,6 +46,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Mezzio\Router\RouteResult request attribute.
+    $app->pipe(CorsMiddleware::class);
     $app->pipe(RouteMiddleware::class);
 
     // The following handle routing failures for common conditions:
@@ -66,6 +68,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based authentication
     // - route-based validation
     // - etc.
+
 
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
