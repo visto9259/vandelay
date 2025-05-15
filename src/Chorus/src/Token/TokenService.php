@@ -11,6 +11,19 @@ use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
+use function curl_close;
+use function curl_error;
+use function curl_exec;
+use function curl_init;
+use function curl_setopt;
+use function json_decode;
+
+use const CURLOPT_HTTPHEADER;
+use const CURLOPT_POST;
+use const CURLOPT_POSTFIELDS;
+use const CURLOPT_RETURNTRANSFER;
+use const CURLOPT_URL;
+
 readonly class TokenService
 {
     public function __construct(
@@ -32,7 +45,7 @@ readonly class TokenService
         /** @var string|null $token */
         $token = $cache->get('token', function (ItemInterface $item) {
             $newToken = $this->authenticate();
-            $item->expiresAfter($newToken->getExpiresIn()-100);
+            $item->expiresAfter($newToken->getExpiresIn() - 100);
             return $newToken->getToken();
         });
         return $token;
@@ -44,15 +57,15 @@ readonly class TokenService
      */
     private function authenticate(): ?Token
     {
-        $body = [
-            'grant_type' => 'client_credentials',
-            'client_id' => $this->options->getClientId(),
+        $body    = [
+            'grant_type'    => 'client_credentials',
+            'client_id'     => $this->options->getClientId(),
             'client_secret' => $this->options->getClientSecret(),
-            'scope' => $this->options->getScope(),
+            'scope'         => $this->options->getScope(),
         ];
         $headers = [];
-        $ch = curl_init();
-        if (!$ch) {
+        $ch      = curl_init();
+        if (! $ch) {
             throw new Exception('Cannot create curl handle');
         }
         curl_setopt($ch, CURLOPT_URL, $this->options->getTokenUrl());
@@ -69,5 +82,4 @@ readonly class TokenService
         $response = json_decode($response, true);
         return new Token($response['access_token'], $response['expires_in']);
     }
-
 }

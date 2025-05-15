@@ -11,14 +11,13 @@ use Psr\Http\Message\ServerRequestInterface;
 
 readonly class DeviceHandler extends AbstractHandler
 {
-
     /**
      * @inheritDoc
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $deviceId = $request->getAttribute('deviceId');
-        $device = $this->chorusService->getDeviceService()->getDeviceInfo($deviceId);
+        $device   = $this->chorusService->getDeviceService()->getDeviceInfo($deviceId);
         return new JsonResponse($device->toArray());
     }
 }

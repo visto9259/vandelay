@@ -39,9 +39,23 @@ use Psr\Container\ContainerInterface;
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
-    $app->get('/api/version', \Api\Handler\VersionHandler::class, 'api.version');
-    $app->route('/api/groups', Api\Handler\GroupHandler::class)->setName('api.groups');
+    $app->route('/api/v1/{url:[a-zA-Z0-9\/\-]+}', [
+        \Mezzio\Helper\BodyParams\BodyParamsMiddleware::class,
+        \Api\Handler\ProxyHandler::class,
+    ])->setName('api.proxy');
+    $app->get('/api/applications', \Api\Handler\ApplicationHandler::class, 'api.applications');
     $app->get('/api/devices', Api\Handler\DevicesHandler::class)->setName('api.devices');
-    $app->get('/api/device/{deviceId}', Api\Handler\DeviceHandler::class)->setName('api.device');
-    $app->get('/api/device/{deviceId}/telemetry', Api\Handler\DeviceTelemetryHandler::class)->setName('api.device.telemetry');
+    $app->route('/api/events', \Api\Handler\EventsHandler::class)->setName('events');
+    $app->post('/api/events/clear', \Api\Handler\EventsClearHandler::class, 'events.clear');
+    $app->route('/api/controls/{appId}/installations/{installationId}', \Api\Handler\ControlsHandler::class)->setName('api.controls');
+    $app->route('/enroll', [
+//        \Mezzio\Session\SessionMiddleware::class,
+        \App\Handler\EnrollHandler::class,
+        ])->setName('enroll');
+/*
+    $app->get('/version', \Api\Handler\VersionHandler::class, 'api.version');
+    $app->route('/groups', Api\Handler\GroupHandler::class)->setName('api.groups');
+    $app->get('/device/{deviceId}', Api\Handler\DeviceHandler::class)->setName('api.device');
+    $app->get('/device/{deviceId}/telemetry', Api\Handler\DeviceTelemetryHandler::class)->setName('api.device.telemetry');
+*/
 };
