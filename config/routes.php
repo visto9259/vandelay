@@ -48,14 +48,4 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->route('/api/events', \Api\Handler\EventsHandler::class)->setName('events');
     $app->post('/api/events/clear', \Api\Handler\EventsClearHandler::class, 'events.clear');
     $app->route('/api/controls/{appId}/installations/{installationId}', \Api\Handler\ControlsHandler::class)->setName('api.controls');
-    $app->route('/enroll', [
-//        \Mezzio\Session\SessionMiddleware::class,
-        \App\Handler\EnrollHandler::class,
-        ])->setName('enroll');
-/*
-    $app->get('/version', \Api\Handler\VersionHandler::class, 'api.version');
-    $app->route('/groups', Api\Handler\GroupHandler::class)->setName('api.groups');
-    $app->get('/device/{deviceId}', Api\Handler\DeviceHandler::class)->setName('api.device');
-    $app->get('/device/{deviceId}/telemetry', Api\Handler\DeviceTelemetryHandler::class)->setName('api.device.telemetry');
-*/
 };
