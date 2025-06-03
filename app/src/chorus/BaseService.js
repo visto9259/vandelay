@@ -3,8 +3,7 @@ import {data} from "react-router";
 import {isDev} from "../helpers/index.js";
 
 function BaseService() {
-//  this.baseUrl = 'http://localhost:8081/api/v1';
-  this.baseUrl = isDev() ? 'http://localhost:8081' : '/';
+  this.baseUrl = '';
 
   /**
    *
@@ -79,7 +78,6 @@ function BaseService() {
   this.patch = (url, data = null) => {
     return fetch(this.baseUrl+url, {
       method: 'PATCH',
-      credentials: 'include',
       withCredentials: true,
       body: JSON.stringify(data),
       headers: {

@@ -20,6 +20,7 @@ import {
 } from "react-bootstrap-icons";
 import {Schedule} from "./Schedule.jsx";
 import {AppOverview} from "./AppOverview.jsx";
+import {Configure} from "./Configure.jsx";
 
 
 export const DeviceDetail = () => {
@@ -138,7 +139,7 @@ export const DeviceDetail = () => {
               <hr className="my-3"/>
 
                 <Nav.Item>
-                  <Nav.Link disabled eventKey="configure" className="d-flex align-items-center gap-2">
+                  <Nav.Link eventKey="configure" className="d-flex align-items-center gap-2">
                     <GearWideConnected/>
                     Configure
                   </Nav.Link>
@@ -160,6 +161,8 @@ export const DeviceDetail = () => {
                 return <Schedule device={device}/>;
               case 'overview':
                 return <AppOverview device={device}/>;
+              case 'configure':
+                return <Configure device={device}/>;
             }
           })()}
         </Col>

@@ -21,26 +21,36 @@ readonly class ApplicationHandler extends AbstractHandler
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $response = $this->chorusService->getAppService()->getApps();
-        $data     = $response['data'] ?? [];
-        $queryParams = $request->getQueryParams();
-        $deviceId = $queryParams['deviceId'] ?? $queryParams['deviceid'] ?? null;
-        $a        = [];
+        $response    = $this->chorusService->getAppService()->getApps();
+        $data        = $response['data'] ?? [];
+        $devices     = $this->getDevices();
+        $a           = [];
         if (count($data) > 0) {
-            $a = array_map(function ($item) use ($deviceId) {
+            $a = array_map(function ($item) use ($devices) {
+                $installations = [];
                 return [
                     'id'            => $item['id'],
                     'appType'       => $item['appType'],
                     'category'      => $item['category'],
                     'versions'      => $this->chorusService->getAppService()->getAppVersions($item['id']),
-                    'installations' => $this->chorusService->getAppService()->getAppInstallations(
-                        $item['id'],
-                        $deviceId,
-                    ),
+                    'installations' => array_map(function ($device) use ($item) {
+                        return $this->chorusService->getAppService()->getAppInstallations($item['id'], $device['id'])[0];
+                    }, $devices),
                 ];
             }, $data);
         }
         $response['data'] = $a;
         return new JsonResponse($response, 200);
+    }
+
+    private function getDevices(): array
+    {
+        $groups  = $this->chorusService->getGroupService()->getGroups();
+        $devices = [];
+        foreach ($groups as $group) {
+            $localDevices = $this->chorusService->getGroupService()->getDevicesByGroupId($group['id']);
+            $devices = [...$localDevices];
+        }
+        return $devices;
     }
 }

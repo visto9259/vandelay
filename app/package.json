@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --emptyOutDir",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "smee": "smee -t http://127.0.1:8081/api/events -u https://smee.io/uoa5cNtLuCWp6Sx"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

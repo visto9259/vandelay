@@ -7,6 +7,7 @@ import Application from "./schema/Application.js";
 import ApplicationService from "./ApplicationService.js";
 import ControlEvent from "./schema/ControlEvent.js";
 import Control from "./schema/Control.js";
+import DigitalTwinService from "./DigitalTwinService.js";
 export {
   Device,
   DeviceService,
@@ -17,4 +18,5 @@ export {
   ApplicationService,
   ControlEvent,
   Control,
+    DigitalTwinService,
 }

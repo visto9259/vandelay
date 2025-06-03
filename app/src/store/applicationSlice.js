@@ -29,6 +29,12 @@ export const getApplications = (devices = []) => {
     dispatch(setLoaded(false));
     const apps = [];
     const promises = [];
+    promises.push(applicationService.getApplications().then(applications => {
+      applications.forEach(application => {
+        apps.push(application);
+      })
+    }));
+    /*
     devices.forEach((device) => {
       promises.push(applicationService.getApplications(device).then(applications => {
         applications.forEach(application => {
@@ -36,6 +42,8 @@ export const getApplications = (devices = []) => {
         })
       }));
     });
+
+     */
     return Promise.all(promises).then(() => {
       dispatch(setApplications(apps));
       dispatch(setLoaded(true));

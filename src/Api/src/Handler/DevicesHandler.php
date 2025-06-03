@@ -9,8 +9,6 @@ use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-use function array_map;
-
 readonly class DevicesHandler extends AbstractHandler
 {
     /**
@@ -24,12 +22,12 @@ readonly class DevicesHandler extends AbstractHandler
         foreach ($groups as $group) {
             $localDevices = $this->chorusService->getGroupService()->getDevicesByGroupId($group['id']);
             foreach ($localDevices as $index => $device) {
-                $localDevices[$index]          = $this->chorusService->getDeviceService()->getDeviceInfo($device['id']);
-                $localDevices[$index]['group'] = $group;
+                $localDevices[$index]                  = $this->chorusService->getDeviceService()->getDeviceInfo($device['id']);
+                $localDevices[$index]['group']         = $group;
                 $localDevices[$index]['configuration'] = $this->chorusService->getDeviceService()->getDeviceConfig($device['id']);
             }
             $devices = [...$localDevices];
         }
-        return new JsonResponse($devices, 200);
+        return new JsonResponse(['data' => $devices], 200);
     }
 }

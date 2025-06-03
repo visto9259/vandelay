@@ -1,9 +1,3 @@
 <?php $this->headTitle('Home'); ?>
-<div class="row">
-    <div class="col">
-        <h2>Chorus Proxy</h2>
-        <p>Connected to <?= $this->baseUrl; ?></p>
-        <p>Using client_id: <?= $this->clientId; ?></p>
-    </div>
-</div>
-
+<?php $this->viteTags('src/main.jsx');?>
+<div id="root"></div>

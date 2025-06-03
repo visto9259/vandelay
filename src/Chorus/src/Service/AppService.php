@@ -32,9 +32,9 @@ class AppService extends AbstractService
 
     public function getAppInstallations(string $appId, ?string $deviceId = null): array
     {
-        $headers  = [];
+        $headers     = [];
         $queryParams = $deviceId ? ['deviceId' => $deviceId] : [];
-        $response = $this->getRequest('/api/v1/applications/' . $appId . '/installations', $queryParams, $headers);
+        $response    = $this->getRequest('/api/v1/applications/' . $appId . '/installations', $queryParams, $headers);
         return $response['data'] ?? [];
     }
 }
