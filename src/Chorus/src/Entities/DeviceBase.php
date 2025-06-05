@@ -21,29 +21,35 @@ class DeviceBase
     {
         return $this->id;
     }
+
     public function getSerialNumber(): string
     {
         return $this->serialNumber;
     }
+
     public function getStatus(): DeviceStatus
     {
         return $this->status;
     }
+
     public function setId(string $id): self
     {
         $this->id = $id;
         return $this;
     }
+
     public function setSerialNumber(string $serialNumber): self
     {
         $this->serialNumber = $serialNumber;
         return $this;
     }
+
     public function setStatus(DeviceStatus $status): self
     {
         $this->status = $status;
         return $this;
     }
+
     public function toArray(): array
     {
         return [

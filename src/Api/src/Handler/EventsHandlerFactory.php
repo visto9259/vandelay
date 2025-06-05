@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Api\Handler;
 
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Psr\Container\ContainerInterface;
 
 class EventsHandlerFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

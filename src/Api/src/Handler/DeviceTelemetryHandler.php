@@ -11,7 +11,6 @@ use Psr\Http\Message\ServerRequestInterface;
 
 readonly class DeviceTelemetryHandler extends AbstractHandler
 {
-
     /**
      * @inheritDoc
      */

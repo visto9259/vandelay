@@ -16,6 +16,7 @@ use function curl_exec;
 use function curl_init;
 use function curl_setopt;
 use function explode;
+use function http_build_query;
 use function json_decode;
 
 use const CURLOPT_HEADER;

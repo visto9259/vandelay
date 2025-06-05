@@ -6,12 +6,10 @@ namespace Api\Handler;
 
 use Chorus\Service\ChorusService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
 
 class HandlerFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

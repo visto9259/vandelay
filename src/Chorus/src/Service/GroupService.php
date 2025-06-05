@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Chorus\Service;
 
-use Chorus\Entities\DeviceBase;
-use Chorus\Entities\Group;
 use Psr\Cache\InvalidArgumentException;
 
 class GroupService extends AbstractService
@@ -38,5 +36,4 @@ class GroupService extends AbstractService
         return $devices;
         */
     }
-
 }

@@ -8,61 +8,64 @@ use Laminas\Stdlib\AbstractOptions;
 
 class ChorusOptions extends AbstractOptions
 {
-    private string $client_id;
-    private string $client_secret;
-    private string $base_url;
-    private string $token_url;
+    private string $clientId;
+    private string $clientSecret;
+    private string $baseUrl;
+    private string $tokenUrl;
     private string $scope;
 
     public function getClientId(): string
     {
-        return $this->client_id;
+        return $this->clientId;
     }
 
-    public function setClientId(string $client_id): self
+    public function setClientId(string $clientId): self
     {
-        $this->client_id = $client_id;
+        $this->clientId = $clientId;
         return $this;
     }
 
     public function getClientSecret(): string
     {
-        return $this->client_secret;
+        return $this->clientSecret;
     }
 
-    public function setClientSecret(string $client_secret): self
+    public function setClientSecret(string $clientSecret): self
     {
-        $this->client_secret = $client_secret;
+        $this->clientSecret = $clientSecret;
         return $this;
     }
 
     public function getBaseUrl(): string
     {
-        return $this->base_url;
+        return $this->baseUrl;
     }
 
-    public function setBaseUrl(string $base_url): self
+    public function setBaseUrl(string $baseUrl): self
     {
-        $this->base_url = $base_url;
+        $this->baseUrl = $baseUrl;
         return $this;
     }
+
     public function getTokenUrl(): string
     {
-        return $this->token_url;
+        return $this->tokenUrl;
     }
-    public function setTokenUrl(string $token_url): self
+
+    public function setTokenUrl(string $tokenUrl): self
     {
-        $this->token_url = $token_url;
+        $this->tokenUrl = $tokenUrl;
         return $this;
     }
+
     public function getScope(): string
     {
         return $this->scope;
     }
+
     public function setScope(string $scope): self
     {
         $this->scope = $scope;
         return $this;
     }
-
 }

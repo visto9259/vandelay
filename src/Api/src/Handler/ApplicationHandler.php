@@ -21,10 +21,10 @@ readonly class ApplicationHandler extends AbstractHandler
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $response    = $this->chorusService->getAppService()->getApps();
-        $data        = $response['data'] ?? [];
-        $devices     = $this->getDevices();
-        $a           = [];
+        $response = $this->chorusService->getAppService()->getApps();
+        $data     = $response['data'] ?? [];
+        $devices  = $this->getDevices();
+        $a        = [];
         if (count($data) > 0) {
             $a = array_map(function ($item) use ($devices) {
                 $installations = [];
@@ -34,7 +34,10 @@ readonly class ApplicationHandler extends AbstractHandler
                     'category'      => $item['category'],
                     'versions'      => $this->chorusService->getAppService()->getAppVersions($item['id']),
                     'installations' => array_map(function ($device) use ($item) {
-                        return $this->chorusService->getAppService()->getAppInstallations($item['id'], $device['id'])[0];
+                        return $this->chorusService->getAppService()->getAppInstallations(
+                            $item['id'],
+                            $device['id']
+                        )[0];
                     }, $devices),
                 ];
             }, $data);
@@ -49,7 +52,7 @@ readonly class ApplicationHandler extends AbstractHandler
         $devices = [];
         foreach ($groups as $group) {
             $localDevices = $this->chorusService->getGroupService()->getDevicesByGroupId($group['id']);
-            $devices = [...$localDevices];
+            $devices      = [...$localDevices];
         }
         return $devices;
     }

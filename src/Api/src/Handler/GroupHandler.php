@@ -10,9 +10,10 @@ use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function array_map;
+
 readonly class GroupHandler extends AbstractHandler
 {
-
     /**
      * Only GET is implemented
      */
@@ -25,7 +26,7 @@ readonly class GroupHandler extends AbstractHandler
     {
         if ($request->getMethod() === 'GET') {
             $groups = $this->chorusService->getGroupService()->getGroups();
-            $data = array_map(function ($item) {
+            $data   = array_map(function ($item) {
                 /** @var Group $item */
                 return $item->toArray();
             }, $groups);

@@ -9,7 +9,8 @@ class ControlService extends AbstractService
     public function getControls(string $appId, string $installationId, array $queryParams = []): array
     {
         $response = $this->getRequest(
-            "/api/v1/applications/$appId/installations/$installationId/controls", $queryParams
+            "/api/v1/applications/$appId/installations/$installationId/controls",
+            $queryParams
         );
         return $response['data'];
     }

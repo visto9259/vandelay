@@ -11,7 +11,6 @@ use Psr\Container\ContainerInterface;
 
 class AppServiceFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

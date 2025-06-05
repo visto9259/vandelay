@@ -29,12 +29,11 @@ class ConfigProvider
         return [
             'factories' => [
                 ChorusOptions::class => ChorusOptionsFactory::class,
-                TokenService::class => TokenServiceFactory::class,
-                AppService::class => AppServiceFactory::class,
+                TokenService::class  => TokenServiceFactory::class,
+                AppService::class    => AppServiceFactory::class,
                 DeviceService::class => DeviceServiceFactory::class,
                 ChorusService::class => ChorusServiceFactory::class,
             ],
         ];
     }
-
 }

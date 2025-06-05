@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
 
 class ChorusServiceFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

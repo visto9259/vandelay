@@ -22,9 +22,11 @@ readonly class DevicesHandler extends AbstractHandler
         foreach ($groups as $group) {
             $localDevices = $this->chorusService->getGroupService()->getDevicesByGroupId($group['id']);
             foreach ($localDevices as $index => $device) {
-                $localDevices[$index]                  = $this->chorusService->getDeviceService()->getDeviceInfo($device['id']);
+                $localDevices[$index]                  = $this->chorusService->getDeviceService()
+                    ->getDeviceInfo($device['id']);
                 $localDevices[$index]['group']         = $group;
-                $localDevices[$index]['configuration'] = $this->chorusService->getDeviceService()->getDeviceConfig($device['id']);
+                $localDevices[$index]['configuration'] = $this->chorusService->getDeviceService()
+                    ->getDeviceConfig($device['id']);
             }
             $devices = [...$localDevices];
         }

@@ -29,75 +29,89 @@ class DeviceAddress
     {
         return $this->city;
     }
+
     public function setCity(string $city): self
     {
         $this->city = $city;
         return $this;
     }
+
     public function getCountry(): string
     {
         return $this->country;
     }
+
     public function setCountry(string $country): self
     {
         $this->country = $country;
         return $this;
     }
+
     public function getCountrySubdivision(): string
     {
         return $this->countrySubdivision;
     }
+
     public function setCountrySubdivision(string $countrySubdivision): self
     {
         $this->countrySubdivision = $countrySubdivision;
         return $this;
     }
+
     public function getFreeFormAddress(): string
     {
         return $this->freeFormAddress;
     }
+
     public function setFreeFormAddress(string $freeFormAddress): self
     {
         $this->freeFormAddress = $freeFormAddress;
         return $this;
     }
+
     public function getStreetName(): string
     {
         return $this->streetName;
     }
+
     public function setStreetName(string $streetName): self
     {
         $this->streetName = $streetName;
         return $this;
     }
+
     public function getStreetNumber(): string
     {
         return $this->streetNumber;
     }
+
     public function setStreetNumber(string $streetNumber): self
     {
         $this->streetNumber = $streetNumber;
         return $this;
     }
+
     public function getZip(): string
     {
         return $this->zip;
     }
+
     public function setZip(string $zip): self
     {
         $this->zip = $zip;
         return $this;
     }
+
     public function toArray(): array
     {
         return [
-            'city' => $this->getCity(),
-            'country' => $this->getCountry(),
+            'city'               => $this->getCity(),
+            'country'            => $this->getCountry(),
             'countrySubdivision' => $this->getCountrySubdivision(),
-            'freeFormAddress' => $this->getFreeFormAddress(),
-            'streetName' => $this->getStreetName(),
-            'streetNumber' => $this->getStreetNumber(),
-            'zip' => $this->getZip(),
+            'freeFormAddress'    => $this->getFreeFormAddress(),
+            'streetName'         => $this->getStreetName(),
+            'streetNumber'       => $this->getStreetNumber(),
+            'zip'                => $this->getZip(),
         ];
     }
 }

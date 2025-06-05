@@ -11,7 +11,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 final class VersionHandler implements RequestHandlerInterface
 {
-
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse([

@@ -8,11 +8,9 @@ use Chorus\Options\ChorusOptions;
 use Chorus\Service\ChorusService;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Server\MiddlewareInterface;
 
 class ProxyHandlerFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

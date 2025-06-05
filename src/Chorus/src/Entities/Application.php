@@ -6,11 +6,11 @@ namespace Chorus\Entities;
 
 class Application
 {
-    protected ?string $id = null;
-    protected ?string $appType = null;
-    protected ?string $category = null;
+    protected ?string $id          = null;
+    protected ?string $appType     = null;
+    protected ?string $category    = null;
     protected array $installations = [];
-    protected array $versions = [];
+    protected array $versions      = [];
 
     public function __construct(array $data)
     {

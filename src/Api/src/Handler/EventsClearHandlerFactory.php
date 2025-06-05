@@ -9,7 +9,6 @@ use Psr\Container\ContainerInterface;
 
 class EventsClearHandlerFactory implements FactoryInterface
 {
-
     /**
      * @inheritDoc
      */

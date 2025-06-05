@@ -21,34 +21,40 @@ class Group
     {
         return $this->description;
     }
+
     public function getId(): string
     {
         return $this->id;
     }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
     }
+
     public function setId(string $id): self
     {
         $this->id = $id;
         return $this;
     }
+
     public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
+
     public function toArray(): array
     {
         return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
+            'id'          => $this->getId(),
+            'name'        => $this->getName(),
             'description' => $this->getDescription(),
         ];
     }

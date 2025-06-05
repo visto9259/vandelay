@@ -9,6 +9,11 @@ use DateMalformedIntervalStringException;
 use DateMalformedStringException;
 use DateTime;
 
+use function json_decode;
+use function json_encode;
+
+use const DATE_ATOM;
+
 class Token
 {
     private string $token;
@@ -20,7 +25,7 @@ class Token
      */
     public function __construct(string $token, int $expiresIn, ?string $expiresAt = null)
     {
-        $this->token = $token;
+        $this->token     = $token;
         $this->expiresIn = $expiresIn;
         if (null === $expiresAt) {
             $now = new DateTime();
@@ -47,14 +52,14 @@ class Token
     public function isExpired(): bool
     {
         $expiresAt = new DateTime($this->expiresAt);
-        $interval = $expiresAt->diff(new DateTime());
+        $interval  = $expiresAt->diff(new DateTime());
         return $interval->invert === 1;
     }
 
     public function serialize(): string
     {
         return json_encode([
-            'token' => $this->token,
+            'token'      => $this->token,
             'expires_at' => $this->expiresAt,
             'expires_in' => $this->expiresIn,
         ]);
@@ -62,8 +67,8 @@ class Token
 
     public function unserialize(string $data): void
     {
-        $array = json_decode($data, true);
-        $this->token = $array['token'];
+        $array           = json_decode($data, true);
+        $this->token     = $array['token'];
         $this->expiresIn = $array['expires_at'];
         $this->expiresAt = $array['expires_at'];
     }
