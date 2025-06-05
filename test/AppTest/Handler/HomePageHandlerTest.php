@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AppTest\Handler;
 
 use App\Handler\HomePageHandler;
+use Chorus\Options\ChorusOptions;
 use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\JsonResponse;
-use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -17,45 +17,47 @@ use Psr\Http\Message\ServerRequestInterface;
 final class HomePageHandlerTest extends TestCase
 {
     /** @var ContainerInterface&MockObject */
-    protected $container;
+    protected ContainerInterface $container;
 
-    /** @var RouterInterface&MockObject */
-    protected $router;
+    protected TemplateRendererInterface $renderer;
+    protected ChorusOptions $chorusOptions;
 
+    /**
+     * @throws Exception
+     */
+    #[\Override]
     protected function setUp(): void
     {
-        $this->container = $this->createMock(ContainerInterface::class);
-        $this->router    = $this->createMock(RouterInterface::class);
+        $this->renderer      = $this->createMock(TemplateRendererInterface::class);
+        $this->chorusOptions = $this->createMock(ChorusOptions::class);
     }
 
-    public function testReturnsJsonResponseWhenNoTemplateRendererProvided(): void
+    /**
+     * @throws Exception
+     */
+    public function testReturnsHtmlResponse(): void
     {
-        $homePage = new HomePageHandler(
-            $this->container::class,
-            $this->router,
-            null
-        );
+        $homePage = new HomePageHandler($this->renderer, $this->chorusOptions);
         $response = $homePage->handle(
             $this->createMock(ServerRequestInterface::class)
         );
 
-        self::assertInstanceOf(JsonResponse::class, $response);
+        self::assertInstanceOf(HtmlResponse::class, $response);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testReturnsHtmlResponseWhenTemplateRendererProvided(): void
     {
         $renderer = $this->createMock(TemplateRendererInterface::class);
         $renderer
             ->expects($this->once())
             ->method('render')
-            ->with('app::home-page', $this->isType('array'))
+            ->with('app::home-page', $this->isArray())
             ->willReturn('');
 
-        $homePage = new HomePageHandler(
-            $this->container::class,
-            $this->router,
-            $renderer
-        );
+        $homePage = new HomePageHandler($renderer, $this->chorusOptions);
 
         $response = $homePage->handle(
             $this->createMock(ServerRequestInterface::class)
