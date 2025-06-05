@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.12.0@cf420941d061a57050b6c468ef2c778faf40aee2">
+  <file src="src/Api/src/ConfigProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ConfigProvider]]></code>
+    </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Api/src/Handler/AbstractHandler.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Api/src/Handler/ApplicationHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ApplicationHandler]]></code>
+    </ClassMustBeFinal>
+    <InvalidArgument>
+      <code><![CDATA[$data]]></code>
+    </InvalidArgument>
+    <MissingClosureParamType>
+      <code><![CDATA[$item]]></code>
+    </MissingClosureParamType>
+    <MissingClosureReturnType>
+      <code><![CDATA[function ($device) use ($item) {]]></code>
+    </MissingClosureReturnType>
+    <MixedArgument>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$group['id']]]></code>
+      <code><![CDATA[$item['id']]]></code>
+      <code><![CDATA[$item['id']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$group['id']]]></code>
+      <code><![CDATA[$item['appType']]]></code>
+      <code><![CDATA[$item['category']]]></code>
+      <code><![CDATA[$item['id']]]></code>
+      <code><![CDATA[$item['id']]]></code>
+      <code><![CDATA[$item['id']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$group]]></code>
+    </MixedAssignment>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$data]]></code>
+    </PossiblyInvalidArgument>
+    <UnusedVariable>
+      <code><![CDATA[$installations]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Api/src/Handler/ControlsHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ControlsHandler]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$appId]]></code>
+      <code><![CDATA[$installationId]]></code>
+      <code><![CDATA[$item['id']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$item['id']]]></code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment>
+      <code><![CDATA[$data[$index]['details']]]></code>
+    </MixedArrayAssignment>
+    <MixedAssignment>
+      <code><![CDATA[$appId]]></code>
+      <code><![CDATA[$installationId]]></code>
+      <code><![CDATA[$item]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Api/src/Handler/DeviceHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceHandler]]></code>
+    </ClassMustBeFinal>
+    <InvalidMethodCall>
+      <code><![CDATA[toArray]]></code>
+    </InvalidMethodCall>
+    <MixedArgument>
+      <code><![CDATA[$deviceId]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$deviceId]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Api/src/Handler/DeviceTelemetryHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceTelemetryHandler]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Api/src/Handler/DevicesHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DevicesHandler]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$group['id']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$device['id']]]></code>
+      <code><![CDATA[$group['id']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$device]]></code>
+      <code><![CDATA[$group]]></code>
+      <code><![CDATA[$localDevices[$index]['group']]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Api/src/Handler/EventsClearHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventsClearHandler]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Api/src/Handler/EventsClearHandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventsClearHandlerFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$config['proxy_config']['events_file']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['proxy_config']]]></code>
+      <code><![CDATA[$config['proxy_config']['events_file']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$config]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Api/src/Handler/EventsHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventsHandler]]></code>
+    </ClassMustBeFinal>
+    <MixedAssignment>
+      <code><![CDATA[$body]]></code>
+      <code><![CDATA[$data['data'][]]]></code>
+    </MixedAssignment>
+    <MixedOperand>
+      <code><![CDATA[$serverParams['REMOTE_ADDR']]]></code>
+      <code><![CDATA[$serverParams['REMOTE_PORT']]]></code>
+      <code><![CDATA[$serverParams['REQUEST_TIME']]]></code>
+    </MixedOperand>
+    <PossiblyFalseOperand>
+      <code><![CDATA[json_encode($data)]]></code>
+    </PossiblyFalseOperand>
+  </file>
+  <file src="src/Api/src/Handler/EventsHandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[EventsHandlerFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$config['proxy_config']['events_file']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['proxy_config']]]></code>
+      <code><![CDATA[$config['proxy_config']['events_file']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$config]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Api/src/Handler/GroupHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GroupHandler]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Api/src/Handler/HandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[HandlerFactory]]></code>
+    </ClassMustBeFinal>
+    <InvalidStringClass>
+      <code><![CDATA[new $requestedName(
+            $container->get(ChorusService::class),
+        )]]></code>
+    </InvalidStringClass>
+  </file>
+  <file src="src/Api/src/Handler/ProxyHandler.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ProxyHandler]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$statusCode]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$statusCode]]></code>
+      <code><![CDATA[$url]]></code>
+    </MixedAssignment>
+    <MixedOperand>
+      <code><![CDATA[$url]]></code>
+    </MixedOperand>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$response]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullOperand>
+      <code><![CDATA[$token]]></code>
+    </PossiblyNullOperand>
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$body]]></code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="src/Api/src/Handler/ProxyHandlerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ProxyHandlerFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+      <code><![CDATA[$container->get(ChorusService::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Api/src/Handler/VersionHandler.php">
+    <UnusedClass>
+      <code><![CDATA[VersionHandler]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/App/src/ConfigProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ConfigProvider]]></code>
+    </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/App/src/Handler/HomePageHandlerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+      <code><![CDATA[$container->get(TemplateRendererInterface::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/ConfigProvider.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ConfigProvider]]></code>
+    </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Chorus/src/Entities/Application.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Application]]></code>
+    </ClassMustBeFinal>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
+    <MixedArgument>
+      <code><![CDATA[$data['appType']]]></code>
+      <code><![CDATA[$data['category']]]></code>
+      <code><![CDATA[$data['id']]]></code>
+    </MixedArgument>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->appType]]></code>
+      <code><![CDATA[$this->category]]></code>
+      <code><![CDATA[$this->id]]></code>
+    </NullableReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$installations]]></code>
+      <code><![CDATA[$versions]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Chorus/src/Entities/ApplicationVersion.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ApplicationVersion]]></code>
+    </ClassMustBeFinal>
+    <InvalidReturnType>
+      <code><![CDATA[self]]></code>
+    </InvalidReturnType>
+    <MixedArgument>
+      <code><![CDATA[$data['appId']]]></code>
+      <code><![CDATA[$data['appName']]]></code>
+      <code><![CDATA[$data['id']]]></code>
+      <code><![CDATA[$data['latest']]]></code>
+      <code><![CDATA[$data['release']]]></code>
+      <code><![CDATA[$data['status']]]></code>
+      <code><![CDATA[$data['version']]]></code>
+    </MixedArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[getAppId]]></code>
+      <code><![CDATA[getAppName]]></code>
+      <code><![CDATA[getId]]></code>
+      <code><![CDATA[getLatest]]></code>
+      <code><![CDATA[getRelease]]></code>
+      <code><![CDATA[getStatus]]></code>
+      <code><![CDATA[getVersion]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[self]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Chorus/src/Entities/Device.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Device]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$data['address']]]></code>
+      <code><![CDATA[$data['bootDate']]]></code>
+      <code><![CDATA[$data['color']]]></code>
+      <code><![CDATA[$data['model']]]></code>
+    </MixedArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getAddress]]></code>
+      <code><![CDATA[getBootDate]]></code>
+      <code><![CDATA[getColor]]></code>
+      <code><![CDATA[getModel]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Entities/DeviceAddress.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceAddress]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$data['city']]]></code>
+      <code><![CDATA[$data['country']]]></code>
+      <code><![CDATA[$data['countrySubdivision']]]></code>
+      <code><![CDATA[$data['freeformAddress']]]></code>
+      <code><![CDATA[$data['streetName']]]></code>
+      <code><![CDATA[$data['streetNumber']]]></code>
+      <code><![CDATA[$data['zip']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Entities/DeviceBase.php">
+    <MixedArgument>
+      <code><![CDATA[$data['id']]]></code>
+      <code><![CDATA[$data['serialNumber']]]></code>
+      <code><![CDATA[$data['status']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Entities/DeviceStatus.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceStatus]]></code>
+    </ClassMustBeFinal>
+    <MixedAssignment>
+      <code><![CDATA[$this->status]]></code>
+      <code><![CDATA[$this->updateDate]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getStatus]]></code>
+      <code><![CDATA[getUpdateDate]]></code>
+      <code><![CDATA[setStatus]]></code>
+      <code><![CDATA[setUpdateDate]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Entities/DeviceTelemetry.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceTelemetry]]></code>
+    </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[DeviceTelemetry]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Chorus/src/Entities/Group.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Group]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$data['description']]]></code>
+      <code><![CDATA[$data['id']]]></code>
+      <code><![CDATA[$data['name']]]></code>
+    </MixedArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Entities/Installation.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Installation]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$data['configuration']]]></code>
+      <code><![CDATA[$data['deviceId']]]></code>
+      <code><![CDATA[$data['id']]]></code>
+      <code><![CDATA[$data['installDate']]]></code>
+      <code><![CDATA[$data['status']]]></code>
+      <code><![CDATA[$data['version']]]></code>
+      <code><![CDATA[$data['versionId']]]></code>
+    </MixedArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[getConfiguration]]></code>
+      <code><![CDATA[getDeviceId]]></code>
+      <code><![CDATA[getId]]></code>
+      <code><![CDATA[getInstallDate]]></code>
+      <code><![CDATA[getStatus]]></code>
+      <code><![CDATA[getVersion]]></code>
+      <code><![CDATA[getVersionId]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Entities/InstallationConfiguration.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[InstallationConfiguration]]></code>
+    </ClassMustBeFinal>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
+    <MixedArgument>
+      <code><![CDATA[$data['enrollmentLastUpdate'] ?? null]]></code>
+      <code><![CDATA[$data['hesAccessLastUpdate'] ?? null]]></code>
+      <code><![CDATA[$data['hesState'] ?? null]]></code>
+      <code><![CDATA[$data['state'] ?? null]]></code>
+      <code><![CDATA[$data['trial_e'] ?? null]]></code>
+      <code><![CDATA[$data['trial_s'] ?? null]]></code>
+      <code><![CDATA[$data['type'] ?? null]]></code>
+    </MixedArgument>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->enrollmentLastUpdate]]></code>
+      <code><![CDATA[$this->hesAccessLastUpdate]]></code>
+      <code><![CDATA[$this->hesState]]></code>
+      <code><![CDATA[$this->state]]></code>
+      <code><![CDATA[$this->trialS]]></code>
+      <code><![CDATA[$this->type]]></code>
+    </NullableReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getEnrollmentLastUpdate]]></code>
+      <code><![CDATA[getHesAccessLastUpdate]]></code>
+      <code><![CDATA[getHesState]]></code>
+      <code><![CDATA[getState]]></code>
+      <code><![CDATA[getTrialE]]></code>
+      <code><![CDATA[getTrialS]]></code>
+      <code><![CDATA[getType]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Options/ChorusOptions.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ChorusOptions]]></code>
+    </ClassMustBeFinal>
+    <MissingTemplateParam>
+      <code><![CDATA[ChorusOptions]]></code>
+    </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setBaseUrl]]></code>
+      <code><![CDATA[setClientId]]></code>
+      <code><![CDATA[setClientSecret]]></code>
+      <code><![CDATA[setScope]]></code>
+      <code><![CDATA[setTokenUrl]]></code>
+    </PossiblyUnusedMethod>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$baseUrl]]></code>
+      <code><![CDATA[$clientId]]></code>
+      <code><![CDATA[$clientSecret]]></code>
+      <code><![CDATA[$scope]]></code>
+      <code><![CDATA[$tokenUrl]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Chorus/src/Options/ChorusOptionsFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ChorusOptionsFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$config['chorus_api']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Service/AbstractService.php">
+    <MixedReturnStatement>
+      <code><![CDATA[json_decode($body, true)]]></code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$response]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$body]]></code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="src/Chorus/src/Service/AppService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppService]]></code>
+    </ClassMustBeFinal>
+    <MixedReturnStatement>
+      <code><![CDATA[$response['data'] ?? []]]></code>
+      <code><![CDATA[$response['data'] ?? []]]></code>
+      <code><![CDATA[$response['data'] ?? []]]></code>
+      <code><![CDATA[$response['data'] ?? []]]></code>
+    </MixedReturnStatement>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[$this->getRequest('/api/v1/applications')]]></code>
+      <code><![CDATA[array<array-key>]]></code>
+    </MixedReturnTypeCoercion>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$deviceId]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Chorus/src/Service/AppServiceFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[AppServiceFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+      <code><![CDATA[$container->get(TokenService::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Service/ChorusService.php">
+    <MixedReturnStatement>
+      <code><![CDATA[json_decode($response, true)]]></code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$response]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullReference>
+      <code><![CDATA[getBearerToken]]></code>
+    </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getRequest]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Service/ChorusServiceFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ChorusServiceFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Service/ControlService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ControlService]]></code>
+    </ClassMustBeFinal>
+    <MixedReturnStatement>
+      <code><![CDATA[$response['data']]]></code>
+      <code><![CDATA[$response['data']]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Chorus/src/Service/DeviceService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceService]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$response['data']]]></code>
+    </MixedArgument>
+    <MixedReturnStatement>
+      <code><![CDATA[$response['data']]]></code>
+      <code><![CDATA[$response['data']]]></code>
+    </MixedReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getDeviceTelemetry]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Service/DeviceServiceFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DeviceServiceFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+      <code><![CDATA[$container->get(TokenService::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Chorus/src/Service/GroupService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GroupService]]></code>
+    </ClassMustBeFinal>
+    <MixedReturnStatement>
+      <code><![CDATA[$response['data']]]></code>
+      <code><![CDATA[$response['data']]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Chorus/src/Token/Token.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Token]]></code>
+    </ClassMustBeFinal>
+    <FalsableReturnStatement>
+      <code><![CDATA[json_encode([
+            'token'      => $this->token,
+            'expires_at' => $this->expiresAt,
+            'expires_in' => $this->expiresIn,
+        ])]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
+    <MixedArrayAccess>
+      <code><![CDATA[$array['expires_at']]]></code>
+      <code><![CDATA[$array['expires_at']]]></code>
+      <code><![CDATA[$array['token']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$array]]></code>
+      <code><![CDATA[$this->expiresAt]]></code>
+      <code><![CDATA[$this->expiresIn]]></code>
+      <code><![CDATA[$this->token]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[isExpired]]></code>
+      <code><![CDATA[serialize]]></code>
+      <code><![CDATA[unserialize]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Chorus/src/Token/TokenService.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TokenService]]></code>
+    </ClassMustBeFinal>
+    <LessSpecificReturnType>
+      <code><![CDATA[?Token]]></code>
+    </LessSpecificReturnType>
+    <MixedArgument>
+      <code><![CDATA[$response['access_token']]]></code>
+      <code><![CDATA[$response['expires_in']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$response['access_token']]]></code>
+      <code><![CDATA[$response['expires_in']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$response]]></code>
+    </MixedAssignment>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$response]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullReference>
+      <code><![CDATA[getExpiresIn]]></code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/Chorus/src/Token/TokenServiceFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[TokenServiceFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ChorusOptions::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="test/AppTest/Handler/HomePageHandlerTest.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$container]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+</files>
