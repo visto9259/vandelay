@@ -1,2 +1,1 @@
 # Vandelay Energy Mock Application
-
