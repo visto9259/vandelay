@@ -1,0 +1,30 @@
+name: Continuous Integration App
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+  push:
+    paths:
+      - 'app/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build React Application
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        name: Setting up Node
+        with:
+          node-version: 20
+          cache: yarn
+          cache-dependency-path: app/yarn.lock
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./app
+      - name: Build application
+        run: yarn build
+        working-directory: ./app
+
