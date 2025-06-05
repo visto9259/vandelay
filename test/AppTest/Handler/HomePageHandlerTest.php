@@ -8,6 +8,7 @@ use App\Handler\HomePageHandler;
 use Chorus\Options\ChorusOptions;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Template\TemplateRendererInterface;
+use Override;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ final class HomePageHandlerTest extends TestCase
     /**
      * @throws Exception
      */
-    #[\Override]
+    #[Override]
     protected function setUp(): void
     {
         $this->renderer      = $this->createMock(TemplateRendererInterface::class);

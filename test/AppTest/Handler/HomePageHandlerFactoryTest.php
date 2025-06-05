@@ -8,7 +8,6 @@ use App\Handler\HomePageHandler;
 use App\Handler\HomePageHandlerFactory;
 use AppTest\InMemoryContainer;
 use Chorus\Options\ChorusOptions;
-use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\TestCase;
 
