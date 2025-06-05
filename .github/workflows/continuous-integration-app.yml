@@ -3,9 +3,11 @@ on:
   pull_request:
     paths:
       - 'app/**'
+      - '.github/workflows/continuous-integration-app.yml'
   push:
     paths:
       - 'app/**'
+      - '.github/workflows/continuous-integration-app.yml'
 
 jobs:
   build:
