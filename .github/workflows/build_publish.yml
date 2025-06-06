@@ -74,6 +74,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ steps.docker_meta.outputs.labels }}
+            ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=sha
           cache-to: type=sha,mode=max
