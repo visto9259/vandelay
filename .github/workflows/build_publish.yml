@@ -73,7 +73,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            ${{ steps.docker_meta.outputs.tags }}
+          tags: ghcr.io/vandelay-energy-demo:latest
+#            ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=sha
           cache-to: type=sha,mode=max
