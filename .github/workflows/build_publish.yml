@@ -53,6 +53,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Meta
+        if: github.event_name != 'workflow_dispatch'
         id: docker_meta
         uses: docker/metadata-action@v5
         with:
@@ -63,7 +64,6 @@ jobs:
             type=semver,pattern={{major}}
             type=ref,event=branch
             type=ref,event=pr
-            type=ref,event=workflow_dispatch
           flavor: |
             latest=false
 
