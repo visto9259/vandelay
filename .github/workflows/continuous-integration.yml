@@ -3,11 +3,13 @@ on:
   pull_request:
     paths-ignore:
       - 'app/**'
-      - '!.github/workflows/continuous-integration-app.yml'
+      - '.github/workflows/continuous-integration-app.yml'
+      - '.github/workflows/build_publish.yml'
   push:
     paths-ignore:
       - 'app/**'
-      - '!.github/workflows/continuous-integration-app.yml'
+      - '.github/workflows/continuous-integration-app.yml'
+      - '.github/workflows/build_publish.yml'
 
 jobs:
   ci:
