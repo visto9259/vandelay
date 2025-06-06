@@ -75,5 +75,5 @@ jobs:
           push: true
           tags: ghcr.io/vandelay-energy-demo:latest
 #            ${{ steps.docker_meta.outputs.tags }}
-          cache-from: type=sha
-          cache-to: type=sha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
