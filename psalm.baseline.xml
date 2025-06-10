@@ -4,9 +4,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Api/src/Handler/AbstractHandler.php">
     <PossiblyUnusedMethod>
@@ -220,9 +217,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/App/src/Handler/HomePageHandlerFactory.php">
     <MixedArgument>
@@ -234,9 +228,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Chorus/src/Entities/Application.php">
     <ClassMustBeFinal>
