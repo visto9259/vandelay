@@ -22,7 +22,7 @@ require 'vendor/autoload.php';
     $container = require 'config/container.php';
 
     /** @var Application $app */
-    $app     = $container->get(Application::class);
+    $app = $container->get(Application::class);
     /** @var MiddlewareFactory $factory */
     $factory = $container->get(MiddlewareFactory::class);
 
