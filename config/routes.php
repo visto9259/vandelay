@@ -39,6 +39,10 @@ use Psr\Container\ContainerInterface;
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
+    $app->get('/devices[/{id}]', App\Handler\HomePageHandler::class, 'home.devices');
+    $app->get('/applications[/{id}]', App\Handler\HomePageHandler::class, 'home.applications');
+    $app->get('/monitor', App\Handler\HomePageHandler::class, 'home.monitor');
+    $app->get('/enroll[/complete/{installationId}]', App\Handler\HomePageHandler::class, 'home.enroll');
     $app->route('/api/v1/{url:[a-zA-Z0-9\/\-]+}', [
         \Mezzio\Helper\BodyParams\BodyParamsMiddleware::class,
         \Api\Handler\ProxyHandler::class,
