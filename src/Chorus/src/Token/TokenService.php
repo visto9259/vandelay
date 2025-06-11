@@ -7,22 +7,13 @@ namespace Chorus\Token;
 use Chorus\Options\ChorusOptions;
 use DateMalformedIntervalStringException;
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
-use function curl_close;
-use function curl_error;
-use function curl_exec;
-use function curl_init;
-use function curl_setopt;
 use function json_decode;
-
-use const CURLOPT_HTTPHEADER;
-use const CURLOPT_POST;
-use const CURLOPT_POSTFIELDS;
-use const CURLOPT_RETURNTRANSFER;
-use const CURLOPT_URL;
 
 readonly class TokenService
 {
@@ -36,7 +27,6 @@ readonly class TokenService
      */
     public function getBearerToken(): ?string
     {
-//        $dir = require __DIR__ . '/../../../../data/cache';
         $cache = new FilesystemAdapter(
             'ChorusToken',
             3500,
@@ -54,32 +44,21 @@ readonly class TokenService
     /**
      * @throws DateMalformedIntervalStringException
      * @throws Exception
+     * @throws GuzzleException
      */
     private function authenticate(): ?Token
     {
-        $body    = [
+        $body     = [
             'grant_type'    => 'client_credentials',
             'client_id'     => $this->options->getClientId(),
             'client_secret' => $this->options->getClientSecret(),
             'scope'         => $this->options->getScope(),
         ];
-        $headers = [];
-        $ch      = curl_init();
-        if (! $ch) {
-            throw new Exception('Cannot create curl handle');
-        }
-        curl_setopt($ch, CURLOPT_URL, $this->options->getTokenUrl());
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        if (false === $response) {
-            $error = curl_error($ch);
-            throw new Exception($error);
-        }
-        curl_close($ch);
-        $response = json_decode($response, true);
-        return new Token($response['access_token'], $response['expires_in']);
+        $client   = new Client();
+        $response = $client->post($this->options->getTokenUrl(), ['form_params' => $body]);
+        $data     = $response->getBody()->getContents();
+        /** @var array<> $tokenData */
+        $tokenData = json_decode($data, true);
+        return new Token($tokenData['access_token'], $tokenData['expires_in']);
     }
 }
