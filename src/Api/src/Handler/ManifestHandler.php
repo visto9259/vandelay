@@ -9,12 +9,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-final class VersionHandler implements RequestHandlerInterface
+final readonly class ManifestHandler extends AbstractHandler
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse([
-            'version' => '1.0.0',
+            'callback_url' => $this->chorusService->getChorusOptions()->getCallbackUrl(),
         ]);
     }
 }

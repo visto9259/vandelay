@@ -13,6 +13,7 @@ class ChorusOptions extends AbstractOptions
     private string $baseUrl;
     private string $tokenUrl;
     private string $scope;
+    private string $callbackUrl;
 
     public function getClientId(): string
     {
@@ -66,6 +67,17 @@ class ChorusOptions extends AbstractOptions
     public function setScope(string $scope): self
     {
         $this->scope = $scope;
+        return $this;
+    }
+
+    public function getCallbackUrl(): string
+    {
+        return $this->callbackUrl;
+    }
+
+    public function setCallbackUrl(string $callbackUrl): self
+    {
+        $this->callbackUrl = $callbackUrl;
         return $this;
     }
 }

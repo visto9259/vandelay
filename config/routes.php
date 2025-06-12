@@ -52,4 +52,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->route('/api/events', \Api\Handler\EventsHandler::class)->setName('events');
     $app->post('/api/events/clear', \Api\Handler\EventsClearHandler::class, 'events.clear');
     $app->route('/api/controls/{appId}/installations/{installationId}', \Api\Handler\ControlsHandler::class)->setName('api.controls');
+    $app->get('/api/manifest', \Api\Handler\ManifestHandler::class)->setName('api.manifest');
 };

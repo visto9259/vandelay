@@ -36,6 +36,7 @@ class ConfigProvider
                 ControlsHandler::class            => HandlerFactory::class,
                 Handler\EventsHandler::class      => Handler\EventsHandlerFactory::class,
                 Handler\EventsClearHandler::class => Handler\EventsClearHandlerFactory::class,
+                Handler\ManifestHandler::class    => HandlerFactory::class,
             ],
         ];
     }

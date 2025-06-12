@@ -102,4 +102,9 @@ final class ChorusService
         curl_close($ch);
         return json_decode($response, true);
     }
+
+    public function getChorusOptions(): ChorusOptions
+    {
+        return $this->options;
+    }
 }
