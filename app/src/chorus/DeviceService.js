@@ -56,7 +56,7 @@ function DeviceService() {
   }
 
   this.getHistory = function (deviceId, options = {}) {
-    const params = new URLSearchParams(options);
+    const params = new URLSearchParams();
     params.append('fromDate', options.fromDate ?? dayjs().add(-1, 'hour').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'));
     params.append('toDate', options.toDate ?? dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'));
     if (options.pageSize) {
@@ -65,7 +65,8 @@ function DeviceService() {
     if (options.continuationToken) {
       params.append('continuationToken', options.continuationToken);
     }
-    return baseService.get(`/api/v1/devices/${deviceId}/history/telemetry?`+params.toString()).then( response => {
+    const type = options.type ?? 'telemetry';
+    return baseService.get(`/api/v1/devices/${deviceId}/history/${type}?`+params.toString()).then( response => {
       return response.getData();
     })
   }
