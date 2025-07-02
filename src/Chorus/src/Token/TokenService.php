@@ -57,7 +57,7 @@ readonly class TokenService
         $client   = new Client();
         $response = $client->post($this->options->getTokenUrl(), ['form_params' => $body]);
         $data     = $response->getBody()->getContents();
-        /** @var array<> $tokenData */
+        /** @var array $tokenData */
         $tokenData = json_decode($data, true);
         return new Token($tokenData['access_token'], $tokenData['expires_in']);
     }

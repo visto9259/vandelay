@@ -4,6 +4,9 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Api/src/Handler/AbstractHandler.php">
     <PossiblyUnusedMethod>
@@ -208,15 +211,13 @@
       <code><![CDATA[$container->get(ChorusService::class)]]></code>
     </MixedArgument>
   </file>
-  <file src="src/Api/src/Handler/VersionHandler.php">
-    <UnusedClass>
-      <code><![CDATA[VersionHandler]]></code>
-    </UnusedClass>
-  </file>
   <file src="src/App/src/ConfigProvider.php">
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
   </file>
   <file src="src/App/src/Handler/HomePageHandlerFactory.php">
     <MixedArgument>
@@ -228,6 +229,9 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Chorus/src/Entities/Application.php">
     <ClassMustBeFinal>
@@ -433,6 +437,7 @@
     </MissingTemplateParam>
     <PossiblyUnusedMethod>
       <code><![CDATA[setBaseUrl]]></code>
+      <code><![CDATA[setCallbackUrl]]></code>
       <code><![CDATA[setClientId]]></code>
       <code><![CDATA[setClientSecret]]></code>
       <code><![CDATA[setScope]]></code>
@@ -440,6 +445,7 @@
     </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$baseUrl]]></code>
+      <code><![CDATA[$callbackUrl]]></code>
       <code><![CDATA[$clientId]]></code>
       <code><![CDATA[$clientSecret]]></code>
       <code><![CDATA[$scope]]></code>
@@ -456,14 +462,8 @@
   </file>
   <file src="src/Chorus/src/Service/AbstractService.php">
     <MixedReturnStatement>
-      <code><![CDATA[json_decode($body, true)]]></code>
+      <code><![CDATA[json_decode($response->getBody()->getContents(), true)]]></code>
     </MixedReturnStatement>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$response]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyUndefinedArrayOffset>
-      <code><![CDATA[$body]]></code>
-    </PossiblyUndefinedArrayOffset>
   </file>
   <file src="src/Chorus/src/Service/AppService.php">
     <ClassMustBeFinal>
@@ -595,19 +595,9 @@
       <code><![CDATA[?Token]]></code>
     </LessSpecificReturnType>
     <MixedArgument>
-      <code><![CDATA[$response['access_token']]]></code>
-      <code><![CDATA[$response['expires_in']]]></code>
+      <code><![CDATA[$tokenData['access_token']]]></code>
+      <code><![CDATA[$tokenData['expires_in']]]></code>
     </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$response['access_token']]]></code>
-      <code><![CDATA[$response['expires_in']]]></code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code><![CDATA[$response]]></code>
-    </MixedAssignment>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$response]]></code>
-    </PossiblyInvalidArgument>
     <PossiblyNullReference>
       <code><![CDATA[getExpiresIn]]></code>
     </PossiblyNullReference>

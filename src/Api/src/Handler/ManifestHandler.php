@@ -7,7 +7,6 @@ namespace Api\Handler;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 final readonly class ManifestHandler extends AbstractHandler
 {
