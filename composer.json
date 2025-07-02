@@ -93,7 +93,7 @@
         "cs-fix": "phpcbf",
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "php -S 0.0.0.0:8081 -t public/"
+            "php -S 0.0.0.0:80 -t public/"
         ],
         "static-analysis": "psalm --stats",
         "static-analysis-update-baseline": "psalm --stats --update-baseline",
