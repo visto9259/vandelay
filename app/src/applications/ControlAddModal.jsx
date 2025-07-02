@@ -86,11 +86,13 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId}) =
                                required isValid={touched.controlType && !errors.controlType} isInvalid={!!errors.controlType}>
                     <option value="export">Grid export limit</option>
                     <option value="consumption">Grid import limit</option>
+                    <option value="EVDCDischarge">EV DC Discharge Setpoint</option>
+                    {/*}
                     <option value="ESSCharge">ESS Charge limit</option>
                     <option value="ESSDischarge">ESS Discharge limit</option>
                     <option value="EVDCCharge">EV DC Charge limit</option>
-                    <option value="EVDCDischarge">EV DC Discharge limit</option>
                     <option value="EVACCharge">EV AC Charge limit</option>
+                    {*/}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">{errors.controlType}</Form.Control.Feedback>
                 </Form.Group>
