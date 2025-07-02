@@ -7,7 +7,8 @@ import {Spinner} from "../components/index.js";
 import  './style.css';
 import {Telemetry} from "./Telemetry.jsx";
 import {Forecast} from "./Forecast.jsx";
-import {History} from "./History.jsx";
+import {Trends} from "./Trends.jsx";
+import {Energy} from "./Energy.jsx";
 import {
   BarChart,
   BarChartSteps, Eye,
@@ -92,9 +93,9 @@ export const DeviceDetail = () => {
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="history" className="d-flex align-items-center gap-2">
-                    <BarChart/>
-                    History
+                  <Nav.Link eventKey="trends" className="d-flex align-items-center gap-2">
+                    <GraphUp/>
+                    Trends
                   </Nav.Link>
                 </Nav.Item>
                 {/*}
@@ -106,9 +107,9 @@ export const DeviceDetail = () => {
                 </Nav.Item>
                 {*/}
                 <Nav.Item>
-                  <Nav.Link eventKey="reports" className="d-flex align-items-center gap-2">
-                    <GraphUp/>
-                    Reports
+                  <Nav.Link eventKey="energy" className="d-flex align-items-center gap-2">
+                    <BarChart/>
+                    Energy
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
@@ -155,14 +156,16 @@ export const DeviceDetail = () => {
                 return <Telemetry device={device}/>;
               case "forecast":
                 return <Forecast device={device}/>;
-              case "history":
-                return <History device={device}/>;
+              case "trends":
+                return <Trends device={device}/>;
               case "schedule":
                 return <Schedule device={device}/>;
               case 'overview':
                 return <AppOverview device={device}/>;
               case 'configure':
                 return <Configure device={device}/>;
+              case 'energy':
+                return <Energy device={device}/>
             }
           })()}
         </Col>
