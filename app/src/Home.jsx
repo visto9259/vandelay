@@ -6,7 +6,7 @@ const Home = () => {
     <>
         <Row>
           <Col>
-            <h2>Welcome to the Vandelay Energy Demo</h2>
+            <h2>Welcome to the Vandelay Flex Energy Demo</h2>
           </Col>
         </Row>
     </>
