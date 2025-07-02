@@ -1,14 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Container, Image, Nav, Navbar} from "react-bootstrap";
 import {NavLink} from "react-router";
 
 function Header({nonav = false}) {
   return (
     <>
       <header className="app-header">
-        <Navbar expand={"sm"} className="navbar-light bg-light fixed-top">
+        <Navbar bg="light" data-bs-scheme="light" expand={"sm"} className="fixed-top">
           <Container>
-            <Navbar.Brand href="/">Vandelay</Navbar.Brand>
+            <Navbar.Brand href="/">
+              <img alt="" src="/dist/vandelay.svg" width="30" height="30" className="d-inline-block align-top"/>
+              {' '}Vandelay
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             {!nonav && (
               <Navbar.Collapse id="basic-navbar-nav">
