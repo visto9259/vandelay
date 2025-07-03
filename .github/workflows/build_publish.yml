@@ -6,6 +6,9 @@ defaults:
 
 on:
   workflow_dispatch:
+  release:
+    types:
+      - published
 
 env:
   REGISTRY: ghcr.io
