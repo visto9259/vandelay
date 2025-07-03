@@ -15,12 +15,17 @@ import {ApplicationDetails} from "./applications/ApplicationDetails.jsx";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import isBetween from "dayjs/plugin/isBetween";
+import utc from  'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import {Enroll} from "./enrollment/Enroll.jsx";
 import {EnrollComplete} from "./enrollment/EnrollComplete.jsx";
 import {Monitor} from "./monitor/Monitor.jsx";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(isBetween);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('America/Los_Angeles');
 
 function App() {
 

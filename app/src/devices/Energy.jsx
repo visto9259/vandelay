@@ -12,6 +12,7 @@ import {
 import {Bar, Line} from "react-chartjs-2";
 import {DeviceService} from "../chorus/index.js";
 import dayjs from "dayjs";
+import {Spinner} from "../components/index.js";
 
 ChartJS.register(
     CategoryScale,
@@ -26,6 +27,7 @@ const deviceService= new DeviceService();
 
 const options = {
     responsive: true,
+    animation: false,
     plugins: {
         legend: {
             position: 'top',
@@ -38,19 +40,24 @@ const options = {
 }
 
 export const Energy = ({device}) => {
+    const [loading, setLoading] = useState(true);
     const [labels, setLabels] = useState([]);
     const [homeEnergy, setHomeEnergy] = useState([]);
     const timerIdRef = useRef(null);
 
     useEffect(() => {
         const pollingCB = () => {
-            deviceService.getHistory(device.id, {type: 'telemetryininterval'}).then((data) => {
-                const a = data.map(item => {
+            const queryOptions = {
+                type: 'telemetryininterval',
+                fromDate: dayjs().add(-1, 'day').toISOString(),
+                toDate: dayjs().toISOString(),
+            };
+            deviceService.getHistory(device.id, queryOptions).then((data) => {
+                setLabels(data.map(item => {
                     return dayjs(item.timestamp).format('hh:mm')
-                });
-                const b = data.map(item => item.data.home.out);
-                setLabels(a);
-                setHomeEnergy(b);
+                }));
+                setHomeEnergy(data.map(item => item.data.home.out));
+                setLoading(false);
             })
         }
         const startPolling = () => {
@@ -63,6 +70,11 @@ export const Energy = ({device}) => {
         startPolling();
         return () => startPolling();
     }, []);
+
+    if (loading) {
+        return(
+            <><Spinner show text={'Loading energy...'}/></>)
+    }
 
   return (
     <>

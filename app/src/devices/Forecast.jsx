@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DeviceService} from "../chorus/index.js";
 import {Spinner} from "../components/Spinner.jsx";
 import {Col, Row} from "react-bootstrap";
@@ -14,7 +14,7 @@ import {Chart as ChartJS,
 } from "chart.js";
 import {Line} from "react-chartjs-2";
 
-/*
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,23 +23,58 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Line
+//  Line
 );
-*/
+
 const deviceService= new DeviceService();
+
+const options = {
+  responsive: true,
+  animation: false,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Forecast'
+    },
+  },
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: 'kW',
+      },
+      min: -20,
+      max: 20,
+    },
+  },
+}
 
 export const Forecast = ({device}) => {
 
-  const [forecast, setForecast] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [homeForecast, setHomeForecast] = React.useState([]);
+  const [lastTimeUpdate, setLastTimeUpdate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [gridForecast, setGridForecast] = useState([]);
+  const [homeLoadForecast, setHomeLoadForecast] = useState([]);
+  const [pvForecast, setPvForecast] = useState([]);
+  const [essForecast, setEssForecast] = useState([]);
+  const [labels, setLabels] = useState([])
 
   useEffect(() => {
     if (device) {
       setLoading(true);
       deviceService.getForecast(device.id).then((data) => {
-        setForecast(data.forecast);
-        setHomeForecast(data.forecast.map((item) => {item.homePower}));
+        const a = data.forecast.map(item => {
+          return dayjs(item.timestamp).format('hh:mm')
+        });
+        setLabels(a);
+        setLastTimeUpdate(data.timestamp);
+        setGridForecast(data.forecast.map((item) => item.gridPower/1000));
+        setHomeLoadForecast(data.forecast.map((item) => item.homePower/1000));
+        setPvForecast(data.forecast.map((item) => item.pvPower/1000));
+        setEssForecast(data.forecast.map((item) => item.essPower/1000));
         setLoading(false);
       })
     }
@@ -54,16 +89,41 @@ export const Forecast = ({device}) => {
     <>
       <Row>
         <Col>
+          <p>Last update: {dayjs(lastTimeUpdate).format('lll')}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <h5>Forecast</h5>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>Last update: {dayjs(forecast.timestamp).format('lll')}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+          <Line
+            options={options}
+            data={{
+              labels: labels,
+              datasets: [
+                {
+                  label: 'Grid Net (kW)',
+                  backgroundColor: '#e3042b',
+//                  backgroundColor: 'red',
+                  data: gridForecast,
+                },
+                {
+                  label: 'House Load (kW)',
+                  backgroundColor: '#00028c',
+                  data: homeLoadForecast,
+                },
+                {
+                  label: 'PV Power (kW)',
+                  backgroundColor: '#1ad912',
+                  data: pvForecast,
+                },
+                {
+                  label: 'ESS Power (kW)',
+                  backgroundColor: '#34d9f1',
+                  data: essForecast,
+                },
+              ]
+            }}
+          />
         </Col>
       </Row>
     </>

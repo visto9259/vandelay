@@ -112,30 +112,32 @@ export const DeviceDetail = () => {
                     Energy
                   </Nav.Link>
                 </Nav.Item>
+                {/*}
                 <Nav.Item>
                   <Nav.Link eventKey="Controls" className="d-flex align-items-center gap-2" href="#">
                     <Puzzle/>
                     DER Controls
                   </Nav.Link>
                 </Nav.Item>
+                {*/}
+                {/*}
                 <h6
                   className="d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
                   <span>Programs</span>
                 </h6>
-                {/*}
                 <Nav.Item>
                   <Nav.Link eventKey="overview" className="d-flex align-items-center gap-2" href="#">
                     <Eye/>
                     Overview
                   </Nav.Link>
                 </Nav.Item>
-                {*/}
                 <Nav.Item>
                   <Nav.Link eventKey="schedule" className="nav-link d-flex align-items-center gap-2" href="#">
                     <BarChartSteps/>
                     Schedules
                   </Nav.Link>
                 </Nav.Item>
+                {*/}
 
               <hr className="my-3"/>
 

@@ -18,8 +18,8 @@ function BaseService() {
       if (response.ok) {
         if (response.status === 200) {
           return response.json().then(data => {
-            if (response.headers['x-ms-continuation-token']) {
-              data['continuationToken'] = response.headers['x-ms-continuation-token'];
+            if (response.headers.get('x-Ms-Continuation-Token')) {
+              data['continuationToken'] = response.headers.get('x-Ms-continuation-Token');
             }
             return new TransactionDefinitionApiModelResponseModel(data);
           });

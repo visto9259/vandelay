@@ -55,7 +55,7 @@ function DeviceService() {
     });
   }
 
-  this.getHistory = function (deviceId, options = {}) {
+  this.getHistory = async function (deviceId, options = {}) {
     const params = new URLSearchParams();
     params.append('fromDate', options.fromDate ?? dayjs().add(-1, 'hour').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'));
     params.append('toDate', options.toDate ?? dayjs().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'));
@@ -66,9 +66,18 @@ function DeviceService() {
       params.append('continuationToken', options.continuationToken);
     }
     const type = options.type ?? 'telemetry';
-    return baseService.get(`/api/v1/devices/${deviceId}/history/${type}?`+params.toString()).then( response => {
-      return response.getData();
-    })
+    let done = false;
+    let responseData = [];
+    while (! done) {
+      const response = await baseService.get(`/api/v1/devices/${deviceId}/history/${type}?`+params.toString());
+      responseData = [...responseData, ...response.getData()];
+      if (response.getContinuationToken()) {
+        params.append('continuationToken', response.getContinuationToken());
+      } else {
+        done = true;
+      }
+    }
+    return responseData;
   }
 }
 

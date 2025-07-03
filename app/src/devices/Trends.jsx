@@ -27,6 +27,7 @@ const deviceService= new DeviceService();
 
 const options = {
     responsive: true,
+    animation: false,
     plugins: {
         legend: {
             position: 'top',
@@ -34,35 +35,52 @@ const options = {
         title: {
             display: true,
             text: 'Power'
-        }
-    }
+        },
+    },
+    scales: {
+        /*
+        x: {
+            type: 'time',
+            time: {
+                tooltipFormat: 'DD T'
+            },
+        },
+
+         */
+        y: {
+            title: {
+                display: true,
+                text: 'kW',
+            },
+            min: -10,
+            max: 10,
+        },
+    },
 }
 
-//const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-/*
-const data = {
-    labels: labels,
-    datasets: [{
-        label: 'House Load',
-        backgroundColor: '#4285F4',
-        data: [30, 39, 10, 50, 30, 70, 35]
-    }]
-};
- */
 export const Trends = ({device}) => {
     const [labels, setLabels] = useState([]);
     const [homePower, setHomePower] = useState([]);
+    const [pvPower, setPvPower] = useState([]);
+    const [essPower, setEssPower] = useState([]);
+    const [gridPower, setGridPower] = useState([]);
     const timerIdRef = useRef(null);
 
     useEffect(() => {
         const pollingCB = () => {
-            deviceService.getHistory(device.id).then((data) => {
-                const a = data.map(item => {
+            const queryOptions = {
+                fromDate: dayjs().add(-10, 'minute').toISOString(),
+                toDate: dayjs().toISOString(),
+                pageSize: 500,
+            };
+            deviceService.getHistory(device.id, queryOptions).then((data) => {
+                setLabels(data.map(item => {
                     return dayjs(item.timestamp).format('hh:mm')
-                });
-                const b = data.map(item => item.data.home.power);
-                setLabels(a);
-                setHomePower(b);
+                }));
+                setHomePower(data.map(item => item.data.home.power/1000));
+                setPvPower(data.map(item => item.data.dcbel.pv[0].power/1000));
+                setEssPower(data.map(item => item.data.dcbel.ess[0].power/1000));
+                setGridPower(data.map(item => item.data.hem.power/1000));
             })
         }
         const startPolling = () => {
@@ -81,11 +99,28 @@ export const Trends = ({device}) => {
       <h5>Trending</h5>
         <Line options={options} data={{
             labels: labels,
-            datasets: [{
-                label: 'House Load (kW)',
-                backgroundColor: '#4285F4',
-                data: homePower,
-            }]
+            datasets: [
+                {
+                    label: 'House Load',
+                    backgroundColor: '#4285F4',
+                    data: homePower,
+                },
+                {
+                    label: 'PV Power',
+                    backgroundColor: '#1ad912',
+                    data: pvPower,
+                },
+                {
+                    label: 'ESS Power',
+                    backgroundColor: '#34d9f1',
+                    data: essPower,
+                },
+                {
+                    label: 'Grid Power',
+                    backgroundColor: '#e3042b',
+                    data: gridPower,
+                },
+            ]
         }}/>
     </>
   );

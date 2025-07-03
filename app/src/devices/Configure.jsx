@@ -43,7 +43,7 @@ export const Configure = ({device}) => {
 
     return (
         <>
-            {loading && <Spinner show text={'Loading telemetry...'}/>}
+            {loading && <Spinner show text={'Loading configuration...'}/>}
             {!loading && <>
                 <Row>
                     <Col>
