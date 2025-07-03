@@ -61,12 +61,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=ref,event=branch
-            type=ref,event=pr
+          tags:
+            type=pep440,pattern={{version}}
           flavor: |
             latest=false
 
@@ -76,7 +72,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/visto9259/vandelay-energy-demo:latest
-#            ${{ steps.docker_meta.outputs.tags }}
+#          tags: ghcr.io/visto9259/vandelay-energy-demo:latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
