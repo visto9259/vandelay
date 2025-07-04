@@ -72,7 +72,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/visto9259/vandelay-energy-demo:latest
-#            ${{ steps.docker_meta.outputs.tags }}
+#          tags: ghcr.io/visto9259/vandelay-energy-demo:latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
