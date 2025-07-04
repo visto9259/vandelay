@@ -64,7 +64,7 @@ jobs:
           tags:
             type=pep440,pattern={{version}}
           flavor: |
-            latest=false
+            latest=auto
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
