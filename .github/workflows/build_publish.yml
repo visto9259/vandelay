@@ -12,7 +12,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: vandelay-energy-demo
+  IMAGE_NAME: visto9259/vandelay-energy-demo
 
 jobs:
   build:
