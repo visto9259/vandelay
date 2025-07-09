@@ -11,7 +11,7 @@ export const Overview = ({application}) => {
     return devices.find((device) => device.id === deviceId);
   }
 
-  const Installations = ({application}) => {
+  const Installations = ({app}) => {
     return (
       <>
         <Table>
@@ -23,7 +23,7 @@ export const Overview = ({application}) => {
           </tr>
           </thead>
           <tbody>
-          {application.installations.map((installation) => (
+          {app.installations.map((installation) => (
               <tr key={installation.id} className="d-none d-sm-table-row">
                 <td><Link to={'/devices/'+installation.deviceId}>{_getDevice(installation.deviceId) ? _getDevice(installation.deviceId).serialNumber : installation.deviceId}</Link></td>
                 <td>{installation.configuration.state === 'Uninstalled' ?
@@ -52,7 +52,7 @@ export const Overview = ({application}) => {
       <Row>
         <Col>
           <h4>Installations:</h4>
-          <Installations application={application}/>
+          <Installations app={application}/>
         </Col>
       </Row>
     </>
