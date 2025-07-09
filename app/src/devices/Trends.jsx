@@ -103,21 +103,29 @@ export const Trends = ({device}) => {
                 {
                     label: 'House Load',
                     backgroundColor: '#4285F4',
+                    borderColor: '#4285F4',
+                    pointStyle: false,
                     data: homePower,
                 },
                 {
                     label: 'PV Power',
                     backgroundColor: '#1ad912',
+                    borderColor: '#1ad912',
+                    pointStyle: false,
                     data: pvPower,
                 },
                 {
                     label: 'ESS Power',
                     backgroundColor: '#34d9f1',
+                    borderColor: '#34d9f1',
+                    pointStyle: false,
                     data: essPower,
                 },
                 {
                     label: 'Grid Power',
                     backgroundColor: '#e3042b',
+                    borderColor: '#e3042b',
+                    pointStyle: false,
                     data: gridPower,
                 },
             ]

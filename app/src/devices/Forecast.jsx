@@ -46,8 +46,8 @@ const options = {
         display: true,
         text: 'kW',
       },
-      min: -20,
-      max: 20,
+      min: -10,
+      max: 10,
     },
   },
 }
@@ -102,23 +102,30 @@ export const Forecast = ({device}) => {
               datasets: [
                 {
                   label: 'Grid Net (kW)',
+                  borderColor: '#e3042b',
                   backgroundColor: '#e3042b',
-//                  backgroundColor: 'red',
                   data: gridForecast,
+                  pointStyle: false
                 },
                 {
                   label: 'House Load (kW)',
+                  borderColor: '#00028c',
                   backgroundColor: '#00028c',
+                  pointStyle: false,
                   data: homeLoadForecast,
                 },
                 {
                   label: 'PV Power (kW)',
+                  borderColor: '#1ad912',
                   backgroundColor: '#1ad912',
+                  pointStyle: false,
                   data: pvForecast,
                 },
                 {
                   label: 'ESS Power (kW)',
+                  borderColor: '#34d9f1',
                   backgroundColor: '#34d9f1',
+                  pointStyle: false,
                   data: essForecast,
                 },
               ]
