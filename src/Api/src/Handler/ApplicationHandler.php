@@ -28,17 +28,19 @@ readonly class ApplicationHandler extends AbstractHandler
         if (count($data) > 0) {
             $a = array_map(function ($item) use ($devices) {
                 $installations = [];
+                foreach ($devices as $device) {
+                    $b = $this->chorusService->getAppService()->getAppInstallations(
+                        $item['id'],
+                        $device['id']
+                    );
+                    $installations = count($b) > 0 ? $b : [];
+                }
                 return [
                     'id'            => $item['id'],
                     'appType'       => $item['appType'],
                     'category'      => $item['category'],
                     'versions'      => $this->chorusService->getAppService()->getAppVersions($item['id']),
-                    'installations' => array_map(function ($device) use ($item) {
-                        return $this->chorusService->getAppService()->getAppInstallations(
-                            $item['id'],
-                            $device['id']
-                        )[0];
-                    }, $devices),
+                    'installations' => $installations,
                 ];
             }, $data);
         }
