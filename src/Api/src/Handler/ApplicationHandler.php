@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Api\Handler;
 
-use Api\Handler\AbstractHandler;
 use Laminas\Diactoros\Response\JsonResponse;
+use Override;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,6 +19,7 @@ readonly class ApplicationHandler extends AbstractHandler
      * @inheritDoc
      * @throws InvalidArgumentException
      */
+    #[Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $response = $this->chorusService->getAppService()->getApps();
@@ -28,8 +29,9 @@ readonly class ApplicationHandler extends AbstractHandler
         if (count($data) > 0) {
             $a = array_map(function ($item) use ($devices) {
                 $installations = [];
+                /** @var array $device */
                 foreach ($devices as $device) {
-                    $b = $this->chorusService->getAppService()->getAppInstallations(
+                    $b             = $this->chorusService->getAppService()->getAppInstallations(
                         $item['id'],
                         $device['id']
                     );

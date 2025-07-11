@@ -4,9 +4,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Api/src/Handler/AbstractHandler.php">
     <PossiblyUnusedMethod>
@@ -23,9 +20,6 @@
     <MissingClosureParamType>
       <code><![CDATA[$item]]></code>
     </MissingClosureParamType>
-    <MissingClosureReturnType>
-      <code><![CDATA[function ($device) use ($item) {]]></code>
-    </MissingClosureReturnType>
     <MixedArgument>
       <code><![CDATA[$device['id']]]></code>
       <code><![CDATA[$group['id']]]></code>
@@ -33,7 +27,6 @@
       <code><![CDATA[$item['id']]]></code>
     </MixedArgument>
     <MixedArrayAccess>
-      <code><![CDATA[$device['id']]]></code>
       <code><![CDATA[$group['id']]]></code>
       <code><![CDATA[$item['appType']]]></code>
       <code><![CDATA[$item['category']]]></code>
@@ -47,9 +40,6 @@
     <PossiblyInvalidArgument>
       <code><![CDATA[$data]]></code>
     </PossiblyInvalidArgument>
-    <UnusedVariable>
-      <code><![CDATA[$installations]]></code>
-    </UnusedVariable>
   </file>
   <file src="src/Api/src/Handler/ControlsHandler.php">
     <ClassMustBeFinal>
@@ -215,9 +205,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/App/src/Handler/HomePageHandlerFactory.php">
     <MixedArgument>
@@ -229,9 +216,6 @@
     <ClassMustBeFinal>
       <code><![CDATA[ConfigProvider]]></code>
     </ClassMustBeFinal>
-    <UnusedClass>
-      <code><![CDATA[ConfigProvider]]></code>
-    </UnusedClass>
   </file>
   <file src="src/Chorus/src/Entities/Application.php">
     <ClassMustBeFinal>

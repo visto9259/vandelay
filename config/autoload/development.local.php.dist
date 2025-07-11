@@ -6,12 +6,6 @@ declare(strict_types=1);
 
 /**
  * Development-only configuration.
- *
- * Put settings you want enabled when under development mode in this file, and
- * check it into your repository.
- *
- * Developers on your team will then automatically enable them by calling on
- * `composer development-enable`.
  */
 
 use Mezzio\Container;
@@ -32,9 +26,9 @@ return [
             'ajax_only'  => true,
         ],
     ],
-    'vite' => [
-        'dev' => true,
-        'vite_url' => 'http://localhost:5173/',
+    'vite'         => [
+        'dev'          => true,
+        'vite_url'     => 'http://localhost:5173/',
         'react_plugin' => true,
     ],
 ];
