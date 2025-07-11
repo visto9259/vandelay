@@ -22,6 +22,7 @@ export const Schedule = ({application}) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [control, setControl] = useState(null);
   const [refresh, setRefesh] = useState(false);
+  const manifest = useSelector(state => state.chorus.manifest);
 
   useEffect(() => {
     if (installationId !== null || refresh) {
@@ -186,7 +187,11 @@ export const Schedule = ({application}) => {
         </Row>
         <ControlViewModal show={showViewModal} appplicationId={application.id} installationId={installationId}
                           control={control} onHide={() => setShowViewModal(false)}/>
-        <ControlAddModal show={showAddModal} applicationId={application.id} installationId={installationId} onHide={() => setShowAddModal(false)}/>
+        <ControlAddModal show={showAddModal}
+                         applicationId={application.id}
+                         installationId={installationId} onHide={() => setShowAddModal(false)}
+                         manifest={manifest}
+        />
       </>
       )}
     </>

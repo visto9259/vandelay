@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {DeviceService} from "../chorus/index.js";
 import {Spinner} from "../components/Spinner.jsx";
 import {Col, Row} from "react-bootstrap";
@@ -55,19 +55,22 @@ const options = {
 export const Forecast = ({device}) => {
 
   const [lastTimeUpdate, setLastTimeUpdate] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [gridForecast, setGridForecast] = useState([]);
   const [homeLoadForecast, setHomeLoadForecast] = useState([]);
   const [pvForecast, setPvForecast] = useState([]);
   const [essForecast, setEssForecast] = useState([]);
   const [labels, setLabels] = useState([])
+  const timerIdRef = useRef(null);
+  const {configuration} = device;
+  const {timeZone} = configuration.dcbel.timeZone;
 
   useEffect(() => {
-    if (device) {
+    const pollingCB = () => {
       setLoading(true);
       deviceService.getForecast(device.id).then((data) => {
         const a = data.forecast.map(item => {
-          return dayjs(item.timestamp).format('hh:mm')
+          return dayjs(item.timestamp).tz(timeZone).format('HH:mm')
         });
         setLabels(a);
         setLastTimeUpdate(data.timestamp);
@@ -76,9 +79,20 @@ export const Forecast = ({device}) => {
         setPvForecast(data.forecast.map((item) => item.pvPower/1000));
         setEssForecast(data.forecast.map((item) => item.essPower/1000));
         setLoading(false);
-      })
+      });
     }
-  }, [device])
+    const startPolling = () => {
+      timerIdRef.current = setInterval(pollingCB, 1000*60*5);
+    }
+    const stopPolling = () => {
+      clearInterval(timerIdRef.current);
+    }
+
+    pollingCB();
+    startPolling();
+    return () => stopPolling();
+
+  }, [])
 
   if (loading) {
     return(
@@ -89,12 +103,8 @@ export const Forecast = ({device}) => {
     <>
       <Row>
         <Col>
-          <p>Last update: {dayjs(lastTimeUpdate).format('lll')}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
           <h5>Forecast</h5>
+          <p><small>Last update: {dayjs(lastTimeUpdate).tz(timeZone).format('HH:mm Z')}</small></p>
           <Line
             options={options}
             data={{

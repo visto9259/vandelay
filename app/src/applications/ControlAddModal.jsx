@@ -9,7 +9,7 @@ import {Spinner} from "../components/index.js";
 
 const applicationService = new ApplicationService();
 
-export const ControlAddModal = ({show, onHide, applicationId, installationId}) => {
+export const ControlAddModal = ({show, onHide, applicationId, installationId, manifest}) => {
 
   const [showSpinner, setShowSpinner] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -29,7 +29,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId}) =
     console.log("submitting:");
     setShowSpinner(true);
     const control = {
-      callbackUri: 'https://smee.io/uoa5cNtLuCWp6Sx',
+      callbackUri: manifest.callback_url,
       description: 'Vandelay Energy Control',
       id: uuidv4(),
       interval: {

@@ -1,5 +1,14 @@
 import React, {useEffect} from 'react';
-import {Badge, Col, Nav, NavItem, Offcanvas, OffcanvasBody, OffcanvasHeader, Row} from "react-bootstrap";
+import {
+  Badge,
+  Col,
+  Nav,
+  Offcanvas,
+  OffcanvasBody,
+  OffcanvasHeader,
+  Row,
+  Stack
+} from "react-bootstrap";
 import {useParams} from 'react-router';
 import {useSelector} from "react-redux";
 import {Device} from "../chorus/index.js";
@@ -17,10 +26,10 @@ import {
   GraphUpArrow,
   People,
   Puzzle,
-  Speedometer
+  Speedometer, House, InfoCircle
 } from "react-bootstrap-icons";
 import {Schedule} from "./Schedule.jsx";
-import {AppOverview} from "./AppOverview.jsx";
+import {Overview} from "./Overview.jsx";
 import {Configure} from "./Configure.jsx";
 
 
@@ -31,7 +40,7 @@ export const DeviceDetail = () => {
     const a= state.devices.devices.find((device) => device.id === deviceId);
     return a === undefined ? null : a;
   });
-  const [activeTab, setActiveTab] = React.useState('status');
+  const [activeTab, setActiveTab] = React.useState('overview');
 
   useEffect(() => {
     if (device && loading) {
@@ -57,12 +66,10 @@ export const DeviceDetail = () => {
   }
   return (
     <>
-      <Row>
-        <Col>
-          <h2>{device.serialNumber} <Badge pill bg="success">{device.status.status}</Badge>
-          </h2>
-        </Col>
-      </Row>
+      <Stack direction="horizontal" gap={3}>
+        <h2>{device.serialNumber}</h2>
+        <Badge pill bg="success">{device.status.status}</Badge>
+      </Stack>
       <Row>
         <Col md={3} lg={2} className="sidebar border border-right p-0 bg-body-tertiary">
           <Offcanvas responsive="md" placement="end" className="bg-body-tertiary" tabIndex="-1" id="sidebarMenu"
@@ -81,6 +88,11 @@ export const DeviceDetail = () => {
                    }}
               >
                 <Nav.Item>
+                  <Nav.Link eventKey="overview" href="#" className="d-flex align-items-center gap-2 active">
+                    <Eye/>Overview
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
                   <Nav.Link eventKey="status" className="d-flex align-items-center gap-2 active">
                     <Speedometer/>
                     Telemetry
@@ -98,28 +110,12 @@ export const DeviceDetail = () => {
                     Trends
                   </Nav.Link>
                 </Nav.Item>
-                {/*}
-                <Nav.Item>
-                  <Nav.Link eventKey="program-events" className="d-flex align-items-center gap-2">
-                    <People/>
-                    Program Events
-                  </Nav.Link>
-                </Nav.Item>
-                {*/}
                 <Nav.Item>
                   <Nav.Link eventKey="energy" className="d-flex align-items-center gap-2">
                     <BarChart/>
                     Energy
                   </Nav.Link>
                 </Nav.Item>
-                {/*}
-                <Nav.Item>
-                  <Nav.Link eventKey="Controls" className="d-flex align-items-center gap-2" href="#">
-                    <Puzzle/>
-                    DER Controls
-                  </Nav.Link>
-                </Nav.Item>
-                {*/}
                 {/*}
                 <h6
                   className="d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
@@ -163,7 +159,7 @@ export const DeviceDetail = () => {
               case "schedule":
                 return <Schedule device={device}/>;
               case 'overview':
-                return <AppOverview device={device}/>;
+                return <Overview device={device}/>;
               case 'configure':
                 return <Configure device={device}/>;
               case 'energy':

@@ -20,6 +20,7 @@ import timezone from 'dayjs/plugin/timezone';
 import {Enroll} from "./enrollment/Enroll.jsx";
 import {EnrollComplete} from "./enrollment/EnrollComplete.jsx";
 import {Monitor} from "./monitor/Monitor.jsx";
+import {getManifest} from "./store/chorusSlice.js";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(isBetween);
@@ -36,17 +37,16 @@ function App() {
   const applicationsLoaded = useSelector(state => state.applications.loaded);
   const devices = useSelector(state => state.devices.devices);
 
-/*
   useEffect(() => {
-    console.debug('Getting groups');
-    dispatch(getGroups());
-  },[]);
+    console.debug('Getting manifest');
+    dispatch(getManifest());
+  }, []);
 
- */
   useEffect(() => {
     console.debug('Getting devices');
     dispatch(getDevices());
   }, []);
+
   useEffect(()  => {
     if (devicesLoaded) {
       console.debug('Getting applications');

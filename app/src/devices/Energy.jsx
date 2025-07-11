@@ -44,6 +44,8 @@ export const Energy = ({device}) => {
     const [labels, setLabels] = useState([]);
     const [homeEnergy, setHomeEnergy] = useState([]);
     const timerIdRef = useRef(null);
+    const {timeZone} = device.configuration.dcbel.timeZone;
+    const [lastUpdate, setLastUpdate] = useState(dayjs().tz(timeZone).format('HH:mm:ss Z'));
 
     useEffect(() => {
         const pollingCB = () => {
@@ -54,9 +56,10 @@ export const Energy = ({device}) => {
             };
             deviceService.getHistory(device.id, queryOptions).then((data) => {
                 setLabels(data.map(item => {
-                    return dayjs(item.timestamp).format('hh:mm')
+                    return dayjs(item.timestamp).tz(timeZone).format('HH:mm')
                 }));
                 setHomeEnergy(data.map(item => item.data.home.out));
+                setLastUpdate(dayjs().tz(timeZone).format('HH:mm:ss Z'));
                 setLoading(false);
             })
         }
@@ -79,6 +82,7 @@ export const Energy = ({device}) => {
   return (
     <>
       <h5>Energy</h5>
+        <p>Last update: {lastUpdate}</p>
         <Bar options={options} data={{
             labels: labels,
             datasets: [{

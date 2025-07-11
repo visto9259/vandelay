@@ -38,15 +38,6 @@ const options = {
         },
     },
     scales: {
-        /*
-        x: {
-            type: 'time',
-            time: {
-                tooltipFormat: 'DD T'
-            },
-        },
-
-         */
         y: {
             title: {
                 display: true,
@@ -65,6 +56,8 @@ export const Trends = ({device}) => {
     const [essPower, setEssPower] = useState([]);
     const [gridPower, setGridPower] = useState([]);
     const timerIdRef = useRef(null);
+    const {timeZone} = device.configuration.dcbel.timeZone;
+    const [lastUpdate, setLastUpdate] = useState(dayjs().tz(timeZone).format('HH:mm:ss Z'));
 
     useEffect(() => {
         const pollingCB = () => {
@@ -75,12 +68,13 @@ export const Trends = ({device}) => {
             };
             deviceService.getHistory(device.id, queryOptions).then((data) => {
                 setLabels(data.map(item => {
-                    return dayjs(item.timestamp).format('hh:mm')
+                    return dayjs(item.timestamp).tz(timeZone).format('hh:mm')
                 }));
                 setHomePower(data.map(item => item.data.home.power/1000));
                 setPvPower(data.map(item => item.data.dcbel.pv[0].power/1000));
                 setEssPower(data.map(item => item.data.dcbel.ess[0].power/1000));
                 setGridPower(data.map(item => item.data.hem.power/1000));
+                setLastUpdate(dayjs().tz(timeZone).format('HH:mm:ss Z'));
             })
         }
         const startPolling = () => {
@@ -91,12 +85,13 @@ export const Trends = ({device}) => {
         }
         pollingCB();
         startPolling();
-        return () => startPolling();
+        return () => stopPolling();
     }, []);
 
   return (
     <>
       <h5>Trending</h5>
+        <p><small>Last update: {lastUpdate}</small></p>
         <Line options={options} data={{
             labels: labels,
             datasets: [
