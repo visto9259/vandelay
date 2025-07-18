@@ -27,11 +27,13 @@ function DeviceService() {
   }
 
   /**
-   *
+   * @param applicationId {string}
    * @return {Promise<Array | void>}
    */
-  this.getDevices = function () {
-    return baseService.get('/api/devices').then((response) => {
+  this.getDevices = function (applicationId) {
+    const params = new URLSearchParams(applicationId);
+    params.append("applicationId", applicationId);
+    return baseService.get('/api/devices'+'?'+params.toString()).then((response) => {
       return response.getData();
     }, (error) => {
       console.error(error);

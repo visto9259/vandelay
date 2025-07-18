@@ -6,14 +6,11 @@ const baseService = new BaseService();
 
 export default function ApplicationService() {
   /**
-   * @param deviceId {string|null}
+   * @param applicationId {string}
    * @return {Promise<Application[]>}
    */
-  this.getApplications = (deviceId = null) => {
-    let url = '/api/applications';
-    if (deviceId) {
-      url += `?deviceId=${deviceId}`;
-    }
+  this.getApplications = (applicationId) => {
+    const url = `/api/applications?applicationId=${applicationId}`;
     return baseService.get(url).then(response => {
       return response.getData();
     });
