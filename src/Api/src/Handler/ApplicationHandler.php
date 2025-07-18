@@ -40,8 +40,8 @@ readonly class ApplicationHandler extends AbstractHandler
         }
         $response = $this->chorusService->getAppService()->getApps();
         /** @var array $applications */
-        $applications = $response['data'];
-        $applications = array_filter($applications, fn ($application) => $application['id'] === $applicationId);
+        $applications     = $response['data'];
+        $applications     = array_filter($applications, fn ($application) => $application['id'] === $applicationId);
         $a                = array_map(function (array $item) {
             $versions      = $this->chorusService->getAppService()->getAppVersions($item['id']);
             $installations = $this->chorusService->getAppService()->getAppInstallations(
