@@ -16,8 +16,8 @@ function Header({nonav = false}) {
             {!nonav && (
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
+                  <NavLink to="/applications" className={'nav-link'}>DER Program</NavLink>
                   <NavLink to="/devices" className={'nav-link'}>Systems</NavLink>
-                  <NavLink to="/applications" className={'nav-link'}>Programs</NavLink>
                   <NavLink to="/monitor" className={'nav-link'}>Monitor</NavLink>
                 </Nav>
               </Navbar.Collapse>
