@@ -44,6 +44,12 @@ class ChorusOptionsFactory implements FactoryInterface
         if (empty($config['chorus_api']['token_url'])) {
             throw new ServiceNotCreatedException('chorus_api config token_url is empty');
         }
+        if (empty($config['chorus_api']['callback_url'])) {
+            throw new ServiceNotCreatedException('chorus_api config callback_url is empty');
+        }
+        if (empty($config['chorus_api']['application_id'])) {
+            throw new ServiceNotCreatedException('chorus_api config application_id is empty');
+        }
 
         return new ChorusOptions($config['chorus_api']);
     }
