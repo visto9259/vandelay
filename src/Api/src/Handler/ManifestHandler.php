@@ -18,7 +18,10 @@ final readonly class ManifestHandler extends AbstractHandler
             'status'      => 2000,
             'requestTime' => (new DateTime())->format(DateTimeInterface::ATOM),
             'data'        => [
-                'callback_url' => $this->chorusService->getChorusOptions()->getCallbackUrl(),
+                'callback_url'   => $this->chorusService->getChorusOptions()->getCallbackUrl(),
+                'callbackUrl'    => $this->chorusService->getChorusOptions()->getCallbackUrl(),
+                'application_id' => $this->chorusService->getChorusOptions()->getApplicationId(),
+                'applicationId'  => $this->chorusService->getChorusOptions()->getApplicationId(),
             ],
         ]);
     }
