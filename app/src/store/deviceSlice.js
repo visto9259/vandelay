@@ -27,12 +27,17 @@ export const deviceSlice = createSlice({
   }
 });
 
-export const getDevices = () => {
+/**
+ *
+ * @param applicationId {string}
+ * @returns {function(*, *): Promise<void>}
+ */
+export const getDevices = (applicationId) => {
   return (dispatch, getState) => {
     const groups = getState().groups.groups;
     dispatch(setLoaded(false));
     dispatch(setDevices([]));
-    return deviceService.getDevices().then((devices) => {
+    return deviceService.getDevices(applicationId).then((devices) => {
       dispatch(setDevices(devices));
       dispatch(setLoaded(true));
     })

@@ -32,6 +32,8 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const manifestLoaded = useSelector(state => state.chorus.loaded);
+  const manifest = useSelector(state => state.chorus.manifest);
   const groupsLoaded = useSelector(state => state.groups.loaded);
   const devicesLoaded = useSelector(state => state.devices.loaded);
   const applicationsLoaded = useSelector(state => state.applications.loaded);
@@ -42,24 +44,26 @@ function App() {
     dispatch(getManifest());
   }, []);
 
-  useEffect(() => {
-    console.debug('Getting devices');
-    dispatch(getDevices());
-  }, []);
-
   useEffect(()  => {
-    if (devicesLoaded) {
+    if (manifestLoaded) {
       console.debug('Getting applications');
-      const a = devices.map((device) => device.id);
-      dispatch(getApplications(a));
+//      const a = devices.map((device) => device.id);
+      dispatch(getApplications(manifest.application_id));
     }
-  }, [devicesLoaded, devices, dispatch])
+  }, [manifestLoaded])
+
+  useEffect(() => {
+    if (applicationsLoaded) {
+      console.debug('Getting devices');
+      dispatch(getDevices(manifest.application_id));
+    }
+  }, [applicationsLoaded]);
 
   useEffect(() => {
     if (devicesLoaded && applicationsLoaded) {
       setLoading(false);
     }
-  },[groupsLoaded, devicesLoaded, applicationsLoaded]);
+  },[devicesLoaded, applicationsLoaded]);
 
   return (
     <>

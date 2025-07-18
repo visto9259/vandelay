@@ -6,25 +6,25 @@ const manifestService = new ManifestService();
 const chorusSlice = createSlice({
   name: "chorus",
   initialState: {
-    loading: false,
+    loaded: false,
     manifest: null,
+    applicationId: null,
   },
   reducers: {
     setManifest: (state, action) => {
       state.manifest = action.payload;
     },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
+    setLoaded: (state, action) => {
+      state.loaded = action.payload;
     }
   }
 });
 
 export const getManifest = () => {
   return (dispatch) => {
-    dispatch(setLoading(true));
     return manifestService.getManifest().then(manifest => {
       dispatch(setManifest(manifest));
-      dispatch(setLoading(false));
+      dispatch(setLoaded(true));
     });
   }
 
@@ -32,6 +32,6 @@ export const getManifest = () => {
 
 export const {
     setManifest,
-    setLoading,
+    setLoaded,
 } = chorusSlice.actions;
 export default chorusSlice.reducer;

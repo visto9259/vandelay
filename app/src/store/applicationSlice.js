@@ -21,15 +21,15 @@ export const ApplicationSlice = createSlice({
 
 /**
  *
- * @param devices {string[]}
+ * @param applicationId {string}
  * @return {function(*): *}
  */
-export const getApplications = (devices = []) => {
+export const getApplications = (applicationId) => {
   return (dispatch) => {
     dispatch(setLoaded(false));
     const apps = [];
     const promises = [];
-    promises.push(applicationService.getApplications().then(applications => {
+    promises.push(applicationService.getApplications(applicationId).then(applications => {
       applications.forEach(application => {
         apps.push(application);
       })
