@@ -17,7 +17,7 @@ function Applications() {
       <>
         <Row>
           <Col>
-            <h2>Programs</h2>
+            <h2>Program</h2>
           </Col>
         </Row>
         <Row>
@@ -28,6 +28,7 @@ function Applications() {
                 <th scope="col">Name</th>
                 <th scope="col">Type</th>
                 <th scope="col">Category</th>
+                <th scope="col">Version</th>
               </tr>
               </thead>
               <tbody>
@@ -36,6 +37,7 @@ function Applications() {
                   <td><Link to={'/applications/'+application.id}>{application.versions[0].appName}</Link></td>
                   <td>{application.appType}</td>
                   <td>{application.category}</td>
+                  <td>{application.versions[0].version}</td>
                 </tr>
               ))}
               </tbody>
