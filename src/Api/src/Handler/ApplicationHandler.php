@@ -10,8 +10,8 @@ use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function array_filter;
 use function array_map;
-use function count;
 
 readonly class ApplicationHandler extends AbstractHandler
 {
@@ -22,30 +22,50 @@ readonly class ApplicationHandler extends AbstractHandler
     #[Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $applicationId = $request->getQueryParams()['applicationId'] ?? null;
+        if ($applicationId === null) {
+            return new JsonResponse([
+                'type'   => 'https://tools.ietf.org/html/rfc9110#section-15.5.1',
+                'title'  => 'One or more validation errors occurred.',
+                'status' => 400,
+                'errors' => [
+                    'applicationId' => [
+                        'The applicationId parameter is required.',
+                    ],
+                ],
+            ], 400);
+        }
         $response = $this->chorusService->getAppService()->getApps();
         $data     = $response['data'] ?? [];
-        $devices  = $this->getDevices();
-        $a        = [];
-        if (count($data) > 0) {
-            $a = array_map(function ($item) use ($devices) {
-                $installations = [];
-                /** @var array $device */
-                foreach ($devices as $device) {
-                    $b             = $this->chorusService->getAppService()->getAppInstallations(
-                        $item['id'],
-                        $device['id']
-                    );
-                    $installations = count($b) > 0 ? $b : [];
-                }
-                return [
-                    'id'            => $item['id'],
-                    'appType'       => $item['appType'],
-                    'category'      => $item['category'],
-                    'versions'      => $this->chorusService->getAppService()->getAppVersions($item['id']),
-                    'installations' => $installations,
-                ];
-            }, $data);
-        }
+        /** @var array $applications */
+        $applications = $response['data'];
+        $applications = array_filter($applications, fn ($application) => $application['id'] === $applicationId);
+        //$devices          = $this->getDevices();
+        $a                = array_map(function (array $item) {
+            $installations = [];
+            /*
+            foreach ($devices as $device) {
+                $b             = $this->chorusService->getAppService()->getAppInstallations(
+                    $item['id'],
+                    $device['id']
+                );
+                $installations = count($b) > 0 ? $b : [];
+            }
+            */
+            $versions      = $this->chorusService->getAppService()->getAppVersions($item['id']);
+            $installations = $this->chorusService->getAppService()->getAppInstallations(
+                $item['id'],
+                ['status' => 'installed']
+            );
+            return [
+                ...$item,
+                'id'            => $item['id'],
+                'appType'       => $item['appType'],
+                'category'      => $item['category'],
+                'versions'      => $versions,
+                'installations' => $installations,
+            ];
+        }, $applications);
         $response['data'] = $a;
         return new JsonResponse($response, 200);
     }
