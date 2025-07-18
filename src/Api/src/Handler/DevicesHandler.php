@@ -9,6 +9,10 @@ use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function date;
+
+use const DATE_ATOM;
+
 readonly class DevicesHandler extends AbstractHandler
 {
     /**
@@ -17,19 +21,33 @@ readonly class DevicesHandler extends AbstractHandler
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $groups  = $this->chorusService->getGroupService()->getGroups();
-        $devices = [];
-        foreach ($groups as $group) {
-            $localDevices = $this->chorusService->getGroupService()->getDevicesByGroupId($group['id']);
-            foreach ($localDevices as $index => $device) {
-                $localDevices[$index]                  = $this->chorusService->getDeviceService()
-                    ->getDeviceInfo($device['id']);
-                $localDevices[$index]['group']         = $group;
-                $localDevices[$index]['configuration'] = $this->chorusService->getDeviceService()
-                    ->getDeviceConfig($device['id']);
-            }
-            $devices = [...$localDevices];
+        $queryParams = $request->getQueryParams();
+        if (! isset($queryParams['applicationId'])) {
+            return new JsonResponse([
+                'type'   => 'https://tools.ietf.org/html/rfc9110#section-15.5.1',
+                'title'  => 'One or more validation errors occurred.',
+                'status' => 400,
+                'errors' => [
+                    'applicationId' => [
+                        'The applicationId parameter is required.',
+                    ],
+                ],
+            ], 400);
         }
-        return new JsonResponse(['data' => $devices], 200);
+        $applicationId = $queryParams['applicationId'];
+        $installations = $this->chorusService->getAppService()->getAppInstallations($applicationId);
+        //$groups  = $this->chorusService->getGroupService()->getGroups();
+        $devices = [];
+        /** @var array $installation */
+        foreach ($installations as $installation) {
+            $a                  = $this->chorusService->getDeviceService()->getDeviceInfo($installation['deviceId']);
+            $a['configuration'] = $this->chorusService->getDeviceService()->getDeviceConfig($installation['deviceId']);
+            $devices[]          = $a;
+        }
+        return new JsonResponse([
+            'status'      => 2000,
+            'requestTime' => date(DATE_ATOM),
+            'data'        => $devices,
+        ], 200);
     }
 }
