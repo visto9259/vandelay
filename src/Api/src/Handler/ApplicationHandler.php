@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Handler;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Override;
 use Psr\Cache\InvalidArgumentException;
@@ -18,10 +19,12 @@ readonly class ApplicationHandler extends AbstractHandler
     /**
      * @inheritDoc
      * @throws InvalidArgumentException
+     * @throws GuzzleException
      */
     #[Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /** @var ?string $applicationId */
         $applicationId = $request->getQueryParams()['applicationId'] ?? null;
         if ($applicationId === null) {
             return new JsonResponse([
@@ -36,22 +39,10 @@ readonly class ApplicationHandler extends AbstractHandler
             ], 400);
         }
         $response = $this->chorusService->getAppService()->getApps();
-        $data     = $response['data'] ?? [];
         /** @var array $applications */
         $applications = $response['data'];
         $applications = array_filter($applications, fn ($application) => $application['id'] === $applicationId);
-        //$devices          = $this->getDevices();
         $a                = array_map(function (array $item) {
-            $installations = [];
-            /*
-            foreach ($devices as $device) {
-                $b             = $this->chorusService->getAppService()->getAppInstallations(
-                    $item['id'],
-                    $device['id']
-                );
-                $installations = count($b) > 0 ? $b : [];
-            }
-            */
             $versions      = $this->chorusService->getAppService()->getAppVersions($item['id']);
             $installations = $this->chorusService->getAppService()->getAppInstallations(
                 $item['id'],

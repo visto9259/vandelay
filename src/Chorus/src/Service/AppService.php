@@ -6,14 +6,15 @@ namespace Chorus\Service;
 
 use Chorus\Entities\ApplicationVersion;
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Cache\InvalidArgumentException;
 
 class AppService extends AbstractService
 {
     /**
-     * @throws InvalidArgumentException
-     * @throws Exception
      * @return array<array-key>
+     * @throws Exception|GuzzleException
+     * @throws InvalidArgumentException
      */
     public function getApps(): array
     {
@@ -22,7 +23,7 @@ class AppService extends AbstractService
 
     /**
      * @return array<ApplicationVersion>
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException|GuzzleException
      */
     public function getAppVersions(string $appId): array
     {
@@ -30,11 +31,19 @@ class AppService extends AbstractService
         return $response['data'] ?? [];
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws InvalidArgumentException
+     */
     public function getAppInstallations(string $appId, array $queryParams = []): array
     {
-        $headers     = [];
+        $headers                 = [];
         $queryParams['pageSize'] = 100;
-        $response    = $this->getRequest('/api/v1/applications/' . $appId . '/installations', $queryParams, $headers);
+        $response                = $this->getRequest(
+            '/api/v1/applications/' . $appId . '/installations',
+            $queryParams,
+            $headers
+        );
         return $response['data'] ?? [];
     }
 }
