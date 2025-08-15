@@ -32,9 +32,16 @@ export const Schedule = ({application}) => {
       const now = new Date();
       const fromDate = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
       const toDate = new Date(now.getTime() + 5*24*3600*1000);
-      params.append('fromDate', fromDate.toISOString());
+      //params.append('fromDate', fromDate.toISOString());
       params.append('toDate', toDate.toISOString());
       applicationService.getControls(application.id, installationId, params).then((controls) => {
+        if (controls.length) {
+          controls.sort((a,b) => {
+            const aStart = new Date(a.interval.start);
+            const bStart = new Date(b.interval.start);
+            return bStart - aStart;
+          });
+        }
         setControls(controls);
         setShowSpinner(false);
       });
@@ -63,8 +70,8 @@ export const Schedule = ({application}) => {
   }
 
   const FutureControls = () => {
+    const now = dayjs();
     const activeControls = controls.filter((control) => {
-      const now = dayjs();
       const startDate = dayjs(control.interval.start);
       const endDate = dayjs(startDate).add(control.interval.duration, 's');
       return now.isBefore(startDate) || now.isBetween(startDate,endDate);
@@ -74,9 +81,8 @@ export const Schedule = ({application}) => {
         <Table striped bordered hover>
           <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col">Start</th>
             <th scope="col">Description</th>
-            <th scope="col">Start Date</th>
             <th scope="col">Dur. (secs)</th>
             <th scope="col">Status</th>
           </tr>
@@ -84,9 +90,8 @@ export const Schedule = ({application}) => {
           <tbody>
           {activeControls.length > 0 && activeControls.map((control) => (
             <tr key={control.id}>
-              <td>{control.id}</td>
-              <td>{control.details.description}</td>
               <td>{dayjs(control.interval.start).format('lll')}</td>
+              <td>{control.details.description}</td>
               <td>{control.interval.duration}</td>
               <td>{control.status.status}</td>
               <td><Button color="primary" size="sm" onClick={()=> _onViewButtonClick(control)}>View</Button></td>
@@ -98,8 +103,8 @@ export const Schedule = ({application}) => {
     );
   }
   const PastControls = () => {
+    const now = dayjs();
     const pastControls = controls.filter((control) => {
-     const now = dayjs();
      const startDate = dayjs(control.interval.start);
      const endDate = dayjs(startDate).add(control.interval.duration, 's');
      return now.isAfter(endDate);
@@ -109,9 +114,8 @@ export const Schedule = ({application}) => {
         <Table striped bordered hover>
           <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col">Start</th>
             <th scope="col">Description</th>
-            <th scope="col">Start Date</th>
             <th scope="col">Dur. (secs)</th>
             <th scope="col">Status</th>
           </tr>
@@ -119,9 +123,8 @@ export const Schedule = ({application}) => {
           <tbody>
           {pastControls.length > 0 && pastControls.map((control) => (
             <tr key={control.id}>
-              <td>{control.id}</td>
-              <td>{control.details.description}</td>
               <td>{dayjs(control.interval.start).format('lll')}</td>
+              <td>{control.details.description}</td>
               <td>{control.interval.duration}</td>
               <td>{control.status.status}</td>
               <td><Button color="primary" size="sm" onClick={()=> _onViewButtonClick(control)}>View</Button></td>
@@ -181,7 +184,7 @@ export const Schedule = ({application}) => {
         <hr/>
         <Row>
           <Col>
-            <h6>Past Controls (up to last 5 days)</h6>
+            <h6>Past Controls</h6>
             <PastControls/>
           </Col>
         </Row>

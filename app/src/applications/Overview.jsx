@@ -1,8 +1,10 @@
-import React from 'react';
-import {Col, Row, Table} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Col, Row, Table} from "react-bootstrap";
 import dayjs from "dayjs";
 import {useSelector} from "react-redux";
 import {Link} from "react-router";
+import {QuestionCircle} from "react-bootstrap-icons";
+import {InstallationViewModal} from "./InstallationViewModal.jsx";
 
 export const Overview = ({application}) => {
 
@@ -10,6 +12,8 @@ export const Overview = ({application}) => {
   const _getDevice = (deviceId) => {
     return devices.find((device) => device.id === deviceId);
   }
+  const [showInstallationModal, setShowInstallationModal] = useState(false);
+  const [installationModal, setInstallationModal] = useState(null);
 
   const Installations = ({app}) => {
     return (
@@ -30,11 +34,23 @@ export const Overview = ({application}) => {
                   dayjs(installation.uninstallDate).format('ll') :
                   dayjs(installation.installDate).format('ll')}
                 </td>
-                <td>{installation.configuration.state}</td>
+                <td>
+                  {installation.configuration.state}
+                  <Button size="sm" variant="none" onClick={() =>{
+                    setShowInstallationModal(true);
+                    setInstallationModal(installation);
+                  }}
+                  ><QuestionCircle/></Button>
+                </td>
               </tr>
           ))}
           </tbody>
         </Table>
+        <InstallationViewModal
+            show={showInstallationModal}
+            installation={installationModal}
+            onHide={()=>setShowInstallationModal(false)}
+        />
       </>
     )
   }

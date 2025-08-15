@@ -39,32 +39,33 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
           <Modal.Title>Control Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-              <p><strong>Description:</strong> {control.details.description}</p>
-              <p><strong>Start on:</strong> {dayjs(control.interval.start).format('lll')}&nbsp;
-                <strong>Ends on:</strong> {dayjs(control.interval.start).add(control.interval.duration, 's').format('lll')}
-              </p>
-              <p><strong>Priority:</strong> {control.primacy}</p>
-              <p><strong>Status:</strong> {control.status.status}</p>
-              <Table>
+            <p className="mb-1"><strong>Description:</strong> {control.details.description}</p>
+            <p style={{fontSize: '0.75rem'}} className="mb-1 fw-light"><strong>id:</strong> {control.id}</p>
+            <p className="mb-1"><strong>Created on:</strong> {dayjs(control.creationTime).format('LLL')}</p>
+            <p className="mb-1"><strong>Starts on:</strong> {dayjs(control.interval.start).format('lll')}&nbsp;
+                <strong>Duration:</strong> {control.interval.duration} secs.
+            </p>
+
+            <p className="mb-1"><strong>Primacy:</strong> {control.primacy}</p>
+            <p className="mb-1"><strong>Status:</strong> {control.status.status}</p>
+            <Table>
                 <thead>
                 <tr>
-                  <th scope="col">Type</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Value</th>
-                  <th scope="col">Unit</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Value</th>
                 </tr>
                 </thead>
                 <tbody>
                 {control.details.parameters.map((parameter, index) => (
-                  <tr key={index}>
-                    <td>{parameter.type}</td>
-                    <td>{parameter.name}</td>
-                    <td>{parameter.value}</td>
-                    <td>{parameter.unit}</td>
-                  </tr>
+                    <tr key={index}>
+                        <td>{parameter.name}</td>
+                        <td>{parameter.type}</td>
+                        <td>{parameter.value} {parameter.unit}</td>
+                    </tr>
                 ))}
                 </tbody>
-              </Table>
+            </Table>
           {(control.status.status === 'EventCompleted' || control.status.status === 'Active') && (
             <Formik initialValues={{
               earnings: ''
@@ -94,6 +95,9 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
             </Formik>
           )}
         </Modal.Body>
+          <Modal.Footer>
+              <Button variant="primary" onClick={onHide}>Close</Button>
+          </Modal.Footer>
       </Modal>
     </>
   );

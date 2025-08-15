@@ -30,7 +30,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
     setShowSpinner(true);
     const control = {
       callbackUri: manifest.callback_url,
-      description: 'Vandelay Energy Control',
+      description: values.description, //'Vandelay Energy Control',
       id: uuidv4(),
       interval: {
         start: dayjs(values.startDateTime).toISOString(),

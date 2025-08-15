@@ -72,21 +72,15 @@ export const ApplicationDetails = () => {
                     Schedules
                   </Nav.Link>
                 </Nav.Item>
-                {/*}
-                <Nav.Item className={_navItemBackgroundColor("monitor")}>
-                  <Nav.Link eventKey="monitor" className="d-flex align-items-center gap-2">
-                    <Eyeglasses/>
-                    Monitor
-                  </Nav.Link>
-                </Nav.Item>
-                {*/}
                 <hr className="my-1"/>
+                {/*}
                 <Nav.Item className={_navItemBackgroundColor("configure")}>
                   <Nav.Link disabled eventKey="configure" className="d-flex align-items-center gap-2">
                     <Gear/>
                     Configure
                   </Nav.Link>
                 </Nav.Item>
+                {*/}
               </Nav>
             </OffcanvasBody>
           </Offcanvas>
