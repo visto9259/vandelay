@@ -1,8 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Container, Image, Nav, Navbar} from "react-bootstrap";
 import {NavLink} from "react-router";
+import {AboutModal} from "./about/AboutModal.jsx";
+import {useState} from "react";
 
 function Header({nonav = false}) {
+  const [showAboutModal, setShowAboutModal] = useState(false);
   return (
     <>
       <header className="app-header">
@@ -15,16 +18,20 @@ function Header({nonav = false}) {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             {!nonav && (
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+                <Nav className="me-auto">
                   <NavLink to="/applications" className={'nav-link'}>DER Program</NavLink>
                   <NavLink to="/devices" className={'nav-link'}>Systems</NavLink>
                   <NavLink to="/monitor" className={'nav-link'}>Monitor</NavLink>
+                </Nav>
+                <Nav>
+                  <NavLink to="#" className="nav-link" onClick={()=>setShowAboutModal(true)}>About</NavLink>
                 </Nav>
               </Navbar.Collapse>
             )}
           </Container>
         </Navbar>
       </header>
+      <AboutModal show={showAboutModal} onHide={()=>setShowAboutModal(false)}/>
     </>
   )
 }
