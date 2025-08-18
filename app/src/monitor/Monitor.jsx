@@ -28,6 +28,12 @@ export const Monitor = () => {
   useEffect(() => {
     const pollingCB = () => {
       eventsService.getEvents().then((data) => {
+        // Sort
+        data.sort((a,b) => {
+          const aTime = new Date(a.content.timeStamp);
+          const bTime = new Date(b.content.timeStamp);
+          return (aTime<bTime) ? 1 : -1;
+        });
         setEvents(data);
       })
     }
