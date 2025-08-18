@@ -7,7 +7,6 @@ import Devices from "./devices/Devices.jsx";
 import Loading from "./Loading.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getGroups} from "./store/groupSlice.js";
 import {getDevices} from "./store/deviceSlice.js";
 import {DeviceDetail} from "./devices/DeviceDetail.jsx";
 import {getApplications} from "./store/applicationSlice.js";
