@@ -13,6 +13,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 use function array_filter;
 use function array_map;
+use function array_values;
 
 readonly class ApplicationHandler extends AbstractHandler
 {
@@ -42,6 +43,7 @@ readonly class ApplicationHandler extends AbstractHandler
         /** @var array $applications */
         $applications     = $response['data'];
         $applications     = array_filter($applications, fn ($application) => $application['id'] === $applicationId);
+        $applications     = array_values($applications);
         $a                = array_map(function (array $item) {
             $versions      = $this->chorusService->getAppService()->getAppVersions($item['id']);
             $installations = $this->chorusService->getAppService()->getAppInstallations(
