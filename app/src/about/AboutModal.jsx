@@ -10,8 +10,8 @@ export const AboutModal = ({show, onHide}) => {
                     <Modal.Title>Vandelay Energy Demo</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>The Vandelay Energy is mock Commercial Aggregator that demonstrates the capabilities of Chorus Transact.</p>
-                    <p>Version x.x.x</p>
+                    <p>The Vandelay Energy is a mock Commercial Aggregator that demonstrates the capabilities of Chorus Transact.</p>
+                    <p>Version {__VANDELAY_APP_VERSION__}</p>
                     <p>&copy;{now.getFullYear()} dcbel inc.</p>
                 </Modal.Body>
                 <Modal.Footer>
