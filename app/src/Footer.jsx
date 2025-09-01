@@ -8,7 +8,7 @@ function Footer() {
         <Container>
           <hr/>
           <p>
-            &copy;{now.getFullYear()} Capacity, by dcbel.
+            &copy;{now.getFullYear()} dcbel inc.
           </p>
         </Container>
       </footer>
