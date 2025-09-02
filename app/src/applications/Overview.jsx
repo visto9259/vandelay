@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import {Button, Col, Row, Table} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Row, Stack, Table} from "react-bootstrap";
 import dayjs from "dayjs";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router";
-import {QuestionCircle} from "react-bootstrap-icons";
+import {ArrowClockwise, QuestionCircle} from "react-bootstrap-icons";
 import {InstallationViewModal} from "./InstallationViewModal.jsx";
+import {Spinner} from "../components/index.js";
+import {getApplications} from "../store/applicationSlice.js";
 
 export const Overview = ({application}) => {
 
@@ -12,10 +14,23 @@ export const Overview = ({application}) => {
   const _getDevice = (deviceId) => {
     return devices.find((device) => device.id === deviceId);
   }
+  const [installationIndex, setInstallationIndex] = useState(null);
   const [showInstallationModal, setShowInstallationModal] = useState(false);
   const [installationModal, setInstallationModal] = useState(null);
+  const applicationIsLoading = useSelector(state => state.applications.isLoading);
+  const dispatch = useDispatch();
 
-  const Installations = ({app}) => {
+  useEffect(() => {
+      if (installationIndex !== null) {
+          setInstallationModal(application.installations[installationIndex]);
+      }
+  }, [application, installationIndex]);
+
+  const _onRefreshClick = () => {
+      dispatch(getApplications(application.id));
+  }
+
+  const Installations = ({installations}) => {
     return (
       <>
         <Table>
@@ -24,21 +39,23 @@ export const Overview = ({application}) => {
             <th scope="col">Systems</th>
             <th scope="col">Installed/Uninstalled</th>
             <th scope="col">Status</th>
+            <th scope="col">HES Access</th>
           </tr>
           </thead>
           <tbody>
-          {app.installations.map((installation) => (
+          {installations.map((installation, index) => (
               <tr key={installation.id} className="d-none d-sm-table-row">
                 <td><Link to={'/devices/'+installation.deviceId}>{_getDevice(installation.deviceId) ? _getDevice(installation.deviceId).serialNumber : installation.deviceId}</Link></td>
                 <td>{installation.configuration.state === 'Uninstalled' ?
                   dayjs(installation.uninstallDate).format('ll') :
                   dayjs(installation.installDate).format('ll')}
                 </td>
+                <td>{installation.configuration.state}</td>
                 <td>
-                  {installation.configuration.state}
+                  {installation.configuration.hesState}
                   <Button size="sm" variant="none" onClick={() =>{
                     setShowInstallationModal(true);
-                    setInstallationModal(installation);
+                    setInstallationIndex(index);
                   }}
                   ><QuestionCircle/></Button>
                 </td>
@@ -46,53 +63,27 @@ export const Overview = ({application}) => {
           ))}
           </tbody>
         </Table>
-        <InstallationViewModal
-            show={showInstallationModal}
-            installation={installationModal}
-            onHide={()=>setShowInstallationModal(false)}
-        />
       </>
     )
   }
 
   return (
     <>
-    {/*}
+        <Spinner show={applicationIsLoading} text="Refreshing"/>
       <Row>
         <Col>
-          <h3>{application.versions[0].appName}</h3>
-          <p className="my-1">Version: {application.versions[0].version}. Released: {dayjs(application.versions[0].release).format('LL')}</p>
-        </Col>
-      </Row>
-     {*/}
-      <Row>
-        <Col>
-          <h4>Installations:</h4>
-          <Installations app={application}/>
+            <Stack direction="horizontal">
+                <h4>Installations:</h4>
+                <Button size="sm" className="ms-auto" onClick={_onRefreshClick}><ArrowClockwise/></Button>
+            </Stack>
+            <Installations installations={application.installations}/>
+            <InstallationViewModal
+                show={showInstallationModal}
+                installation={installationModal}
+                onHide={()=>setShowInstallationModal(false)}
+            />
         </Col>
       </Row>
     </>
   );
 };
-
-{/*}
-      <Row>
-        <Col>
-          <h3>Installations:</h3>
-          <Table>
-            <thead >
-              <tr className="d-none d-sm-table-row">
-                <th scope="col">Device</th>
-                <th scope="col">Install Date</th>
-                <th scope="col">Version</th>
-              </tr>
-            </thead>
-            <tbody>
-            {application.installations.map((installation) => {
-                return (<Installation key={installation.id} installation={installation}/>)
-            })}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-      {*/}
