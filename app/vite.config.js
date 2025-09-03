@@ -9,7 +9,7 @@ export default defineConfig(({mode}) => {
             react(),
             vitePluginVersionMark({
                 ifGlobal: true,
-                command: mode === 'development' ? "git branch --show-current" : "git describe --tags --abbrev=0"
+                command: mode === 'production' ? "git describe --tags --abbrev=0" : "git branch --show-current",
             })
         ],
         build: {

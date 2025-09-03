@@ -27,6 +27,6 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./app
       - name: Build application
-        run: yarn build
+        run: yarn build_ci
         working-directory: ./app
 

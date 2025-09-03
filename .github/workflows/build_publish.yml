@@ -42,7 +42,7 @@ jobs:
         working-directory: ./app
 
       - name: Build application
-        run: yarn build
+        run: yarn build --mode production
         working-directory: ./app
         
       - name: Set up Docker Buildx
