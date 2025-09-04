@@ -55,13 +55,6 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
     <>
       <Spinner show={showSpinner} text={'Submitting request...'}/>
       <Modal size="lg" show={show} onHide={onHide} backdrop="static">
-        <Modal.Header closeButton>
-          <Modal.Title>Schedule a new DER control</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Alert variant="success" className="ms-auto" dismissible show={showAlert} onClose={() => {setShowAlert(false)}}>
-            The control was successfully submitted
-          </Alert>
           <Formik initialValues={{
             description: '',
             controlType: 'export',
@@ -71,68 +64,76 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
             priority: 'Provisional',
           }} onSubmit={_onSubmit} validationSchema={validationSchema}>
             {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="description" className="mb-3">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control value={values.description} onChange={handleChange} onBlur={handleBlur} required type="text"
-                                placeholder="Enter a description of the control"
-                                isValid={touched.description && !errors.description} isInvalid={!!errors.description}
-                  />
-                  <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="controlType" className="mb-3">
-                  <Form.Label>Control Type</Form.Label>
-                  <Form.Select value={values.controlType} onChange={handleChange} className="mb-1"
-                               required isValid={touched.controlType && !errors.controlType} isInvalid={!!errors.controlType}>
-                    <option value="export">Grid export limit</option>
-                    <option value="consumption">Grid import limit</option>
-                    <option value="EVDCDischarge">EV DC Discharge Setpoint</option>
-                    {/*}
+                <>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Schedule a new DER control</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Alert variant="success" className="ms-auto" dismissible show={showAlert} onClose={() => {setShowAlert(false)}}>
+                            The control was successfully submitted
+                        </Alert>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="description" className="mb-3">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control value={values.description} onChange={handleChange} onBlur={handleBlur} required type="text"
+                                              placeholder="Enter a description of the control"
+                                              isValid={touched.description && !errors.description} isInvalid={!!errors.description}
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group controlId="controlType" className="mb-3">
+                                <Form.Label>Control Type</Form.Label>
+                                <Form.Select value={values.controlType} onChange={handleChange} className="mb-1"
+                                             required isValid={touched.controlType && !errors.controlType} isInvalid={!!errors.controlType}>
+                                    <option value="export">Grid export limit</option>
+                                    <option value="consumption">Grid import limit</option>
+                                    <option value="EVDCDischarge">EV DC Discharge Setpoint</option>
+                                    {/*}
                     <option value="ESSCharge">ESS Charge limit</option>
                     <option value="ESSDischarge">ESS Discharge limit</option>
                     <option value="EVDCCharge">EV DC Charge limit</option>
                     <option value="EVACCharge">EV AC Charge limit</option>
                     {*/}
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">{errors.controlType}</Form.Control.Feedback>
-                </Form.Group>
-                <Row className="mb-3">
-                  <Form.Group as={Col} controlId="startDateTime">
-                    <Form.Label>Start:</Form.Label>
-                    <Form.Control onChange={handleChange} value={values.startDateTime} required type="datetime-local"/>
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="endDateTime">
-                    <Form.Label>End:</Form.Label>
-                    <Form.Control onChange={handleChange} value={values.endDateTime} required type="datetime-local"/>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Col} controlId="powerValue">
-                    <Form.Label>Power Value (kW)</Form.Label>
-                    <Form.Control min={0} max={8} value={values.powerValue} onChange={handleChange} required type="number"
-                                  placeholder="Power value"
-                                  isValid={touched.powerValue && !errors.powerValue} isInvalid={!!errors.powerValue}
-                    />
-                    <Form.Control.Feedback type="invalid">{errors.powerValue}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="priority">
-                    <Form.Label>Priority</Form.Label>
-                    <Form.Select value={values.priority} onChange={handleChange} className="mb-3" required>
-                      <option value={'Mandatory'}>Mandatory</option>
-                      <option value={'Provisional'}>Provisional</option>
-                      <option value={'Voluntary'}>Voluntary</option>
-                    </Form.Select>
-                  </Form.Group>
-                </Row>
-                <Row className ="">
-                  <Stack direction="horizontal" gap={3}>
-                    <Button variant="primary" type="submit">Submit</Button>
-                  </Stack>
-                </Row>
-              </Form>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">{errors.controlType}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Row className="mb-3">
+                                <Form.Group as={Col} controlId="startDateTime">
+                                    <Form.Label>Start:</Form.Label>
+                                    <Form.Control onChange={handleChange} value={values.startDateTime} required type="datetime-local"/>
+                                </Form.Group>
+                                <Form.Group as={Col} controlId="endDateTime">
+                                    <Form.Label>End:</Form.Label>
+                                    <Form.Control onChange={handleChange} value={values.endDateTime} required type="datetime-local"/>
+                                </Form.Group>
+                            </Row>
+                            <Row className="mb-3">
+                                <Form.Group as={Col} controlId="powerValue">
+                                    <Form.Label>Power Value (kW)</Form.Label>
+                                    <Form.Control min={0} max={8} value={values.powerValue} onChange={handleChange} required type="number"
+                                                  placeholder="Power value"
+                                                  isValid={touched.powerValue && !errors.powerValue} isInvalid={!!errors.powerValue}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.powerValue}</Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group as={Col} controlId="priority">
+                                    <Form.Label>Priority</Form.Label>
+                                    <Form.Select value={values.priority} onChange={handleChange} className="mb-3" required>
+                                        <option value={'Mandatory'}>Mandatory</option>
+                                        <option value={'Provisional'}>Provisional</option>
+                                        <option value={'Voluntary'}>Voluntary</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                            <Button className="me-auto" variant="primary" type="submit">Submit</Button>
+                            <Button variant="outline-primary" onClick={onHide}>Close</Button>
+                    </Modal.Footer>
+                </>
             )}
           </Formik>
-        </Modal.Body>
       </Modal>
     </>
   );
