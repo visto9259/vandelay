@@ -13,7 +13,7 @@ Support to have these set up.
 The application is available as a Docker container:
 
 ```sh
-docker pull ghrc.io/dcbel/vandelay-energy-demo:latest
+docker pull ghcr.io/dcbel/vandelay-energy-demo:latest
 ```
 
 There are several environment variables that must be defined for the application to work:
