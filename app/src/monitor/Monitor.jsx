@@ -75,7 +75,7 @@ export const Monitor = () => {
             <tr key={event.id}>
               <td>{dayjs(event.content.timeStamp).format('YYYY-MM-DD HH:mm:ss')}</td>
               <td>{event.content.controlId}</td>
-              <td>{_getDevice(event.content.deviceId).serialNumber}</td>
+              <td>{_getDevice(event.content.deviceId) === undefined ? (<em>{event.content.deviceId}</em>) : _getDevice(event.content.deviceId).serialNumber}</td>
               <td>{event.content.status}</td>
               <td><Button size="sm" onClick={()=>{
                 setShowEventModal(true);
