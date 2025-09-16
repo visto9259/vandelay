@@ -1,12 +1,11 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 import {Col, Row, Table} from "react-bootstrap";
 import dayjs from "dayjs";
 
 export const Overview = ({device}) => {
 
     const {configuration} = device;
-    const {dcbel, ess} = configuration;
+    const {dcbel} = configuration;
 
 
   return (
