@@ -127,7 +127,7 @@ export const Schedule = ({application}) => {
               <td>{control.details.description}</td>
               <td>{control.interval.duration}</td>
               <td>{control.status.status}</td>
-              <td><Button color="primary" size="sm" onClick={()=> _onViewButtonClick(control)}>View</Button></td>
+              <td><Button variant="outline-primary" color="primary" size="sm" onClick={()=> _onViewButtonClick(control)}>View</Button></td>
             </tr>
           ))}
           </tbody>
@@ -139,13 +139,6 @@ export const Schedule = ({application}) => {
   return (
     <>
       <Spinner show={showSpinner}/>
-      {/*}
-      <Row className="mb-2">
-        <Col>
-          <h4>Schedules</h4>
-        </Col>
-      </Row>
-      {*/}
       {application.installations.length === 0 && (
         <Row>
           <Col>
@@ -159,7 +152,7 @@ export const Schedule = ({application}) => {
           <Col>
             <Form>
               <Form.Group as={Row} controlId="selectDevice">
-                <Col sm={10}>
+                <Col>
                   <Form.Select onChange={_onSelect} value={installationId}>
                     {application.installations.map((installation) => (
                       <option key={installation.id} value={installation.id}>{_getDevice(installation.deviceId).serialNumber}</option>
@@ -172,7 +165,7 @@ export const Schedule = ({application}) => {
         </Row>
           <Stack direction="horizontal" gap={3}>
             <Button className="mx-1" variant="primary" onClick={() => {setShowAddModal(true)}}>New Schedule</Button>
-            <Button className="ms-auto" variant="primary" onClick={() => {setRefesh(true)}}><ArrowClockwise/></Button>
+            <Button className="ms-auto" variant="outline-primary" onClick={() => {setRefesh(true)}}><ArrowClockwise/></Button>
           </Stack>
         <hr/>
         <Row>

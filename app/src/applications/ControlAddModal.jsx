@@ -65,7 +65,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
           }} onSubmit={_onSubmit} validationSchema={validationSchema}>
             {({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
                 <>
-                    <Modal.Header closeButton>
+                    <Modal.Header>
                         <Modal.Title>Schedule a new DER control</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -128,7 +128,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                            <Button className="me-auto" variant="primary" type="submit">Submit</Button>
+                            <Button className="me-auto" variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                             <Button variant="outline-primary" onClick={onHide}>Close</Button>
                     </Modal.Footer>
                 </>

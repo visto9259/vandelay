@@ -35,7 +35,7 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
     <>
       <Spinner show={showSpinner} text="Submitting earnings"/>
       <Modal size="lg" show={show} onHide={onHide} backdrop="static">
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Control Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -96,7 +96,7 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
           )}
         </Modal.Body>
           <Modal.Footer>
-              <Button variant="primary" onClick={onHide}>Close</Button>
+              <Button variant="outline-primary" onClick={onHide}>Close</Button>
           </Modal.Footer>
       </Modal>
     </>
