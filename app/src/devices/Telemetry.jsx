@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 const deviceService = new DeviceService();
 
-export const Telemetry = ({deviceId, device}) => {
+export const Telemetry = ({device}) => {
 
   const [telemetry, setTelemetry] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -39,7 +39,7 @@ export const Telemetry = ({deviceId, device}) => {
       <><Spinner show text={'Loading telemetry...'}/></>)
   }
 
-  const {home, hem, s, dcbel, ats} = telemetry.data;
+  const {home, hem, dcbel} = telemetry.data;
   const {timestamp} = telemetry;
   const {ess, pv, ev} = dcbel;
   const homePower = parseFloat(home.power)/1000;
