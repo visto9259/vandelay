@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Modal, Row} from "react-bootstrap";
+import {Button, Col, Modal, Row} from "react-bootstrap";
 import dayjs from "dayjs";
 import {useSelector} from "react-redux";
 
@@ -17,7 +17,7 @@ export const EventViewModal = ({show, event, onHide}) => {
   return (
     <>
       <Modal size="lg" show={show} onHide={onHide} backdrop="static">
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Event Details</Modal.Title>
         </Modal.Header>
         <Modal.Body as={Row}>
@@ -28,12 +28,15 @@ export const EventViewModal = ({show, event, onHide}) => {
             <p>Status:</p>
           </Col>
           <Col>
-            <p>{dayjs(event.content.timestamp).format('lll')}</p>
+            <p>{dayjs(event.content.timeStamp).format('lll')}</p>
             <p>{event.content.controlId}</p>
             <p>{_getDevice(event.content.deviceId).serialNumber}</p>
             <p>{event.content.status}</p>
           </Col>
         </Modal.Body>
+          <Modal.Footer>
+              <Button variant="primary" onClick={onHide}>Close</Button>
+          </Modal.Footer>
       </Modal>
     </>
   );
