@@ -7,11 +7,12 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend, PointElement,
+    Legend, PointElement, TimeSeriesScale,
 } from "chart.js";
 import {Bar, Line} from "react-chartjs-2";
 import {DeviceService} from "../chorus/index.js";
 import dayjs from "dayjs";
+import 'chartjs-adapter-dayjs-4/dist';
 
 ChartJS.register(
     CategoryScale,
@@ -20,7 +21,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    TimeSeriesScale,
 );
 
 const deviceService= new DeviceService();
@@ -46,6 +48,17 @@ const options = {
             min: -10,
             max: 10,
         },
+        x: {
+            /*
+            type: 'time',
+            time: {
+                unit: 'second',
+                stepSize: 10,
+//                displayFormat: 'HH:mm:ss',
+            }
+
+             */
+        },
     },
 }
 
@@ -55,25 +68,37 @@ export const Trends = ({device}) => {
     const [pvPower, setPvPower] = useState([]);
     const [essPower, setEssPower] = useState([]);
     const [gridPower, setGridPower] = useState([]);
+    const [evAcPower, setEvAcPower] = useState([]);
+    const [evDcPower, setEvDcPower] = useState([]);
     const timerIdRef = useRef(null);
     const {timeZone} = device.configuration.dcbel.timeZone;
     const [lastUpdate, setLastUpdate] = useState(dayjs().tz(timeZone).format('HH:mm:ss Z'));
+    const nbTimeSlots = 360;
 
     useEffect(() => {
         const pollingCB = () => {
             const queryOptions = {
-                fromDate: dayjs().add(-10, 'minute').toISOString(),
+                fromDate: dayjs().add(-30, 'minute').toISOString(),
                 toDate: dayjs().toISOString(),
                 pageSize: 500,
             };
             deviceService.getHistory(device.id, queryOptions).then((data) => {
+                _processTelemetryData(data, 360);
                 setLabels(data.map(item => {
-                    return dayjs(item.timestamp).tz(timeZone).format('hh:mm')
+                    return dayjs(item.timestamp).tz(timeZone).format('hh:mm:ss')
                 }));
                 setHomePower(data.map(item => item.data.home.power/1000));
                 setPvPower(data.map(item => item.data.dcbel.pv[0].power/1000));
                 setEssPower(data.map(item => item.data.dcbel.ess[0].power/1000));
                 setGridPower(data.map(item => item.data.hem.power/1000));
+                setEvAcPower(data.map((item) => {
+                    const evAC = item.data.dcbel.ev.filter(item => item.currentType === 'AC');
+                    return evAC[0].power ? evAC[0].power/1000 : 0;
+                }));
+                setEvDcPower(data.map((item) => {
+                    const evDC = item.data.dcbel.ev.filter(item => item.currentType === 'DC');
+                    return evDC[0].power ? evDC[0].power/1000 : 0;
+                }));
                 setLastUpdate(dayjs().tz(timeZone).format('HH:mm:ss Z'));
             })
         }
@@ -88,6 +113,21 @@ export const Trends = ({device}) => {
         return () => stopPolling();
     }, []);
 
+    /**
+     * @param data
+     * @param {number} nbTimeSlots
+     */
+    const _processTelemetryData = (data, nbTimeSlots) => {
+
+        let timeSlots = [];
+        let initialTime = dayjs().add(-30, 'minute');
+        for (let i = 0; i < nbTimeSlots; i++) {
+            timeSlots[i] = initialTime;
+            initialTime = initialTime.add(5, 'second');
+        }
+        return timeSlots;
+    }
+
   return (
     <>
       <h5>Trending</h5>
@@ -96,32 +136,46 @@ export const Trends = ({device}) => {
             labels: labels,
             datasets: [
                 {
-                    label: 'House Load',
+                    label: 'House',
                     backgroundColor: '#4285F4',
                     borderColor: '#4285F4',
                     pointStyle: false,
                     data: homePower,
                 },
                 {
-                    label: 'PV Power',
+                    label: 'PV',
                     backgroundColor: '#1ad912',
                     borderColor: '#1ad912',
                     pointStyle: false,
                     data: pvPower,
                 },
                 {
-                    label: 'ESS Power',
+                    label: 'ESS',
                     backgroundColor: '#34d9f1',
                     borderColor: '#34d9f1',
                     pointStyle: false,
                     data: essPower,
                 },
                 {
-                    label: 'Grid Power',
+                    label: 'Grid',
                     backgroundColor: '#e3042b',
                     borderColor: '#e3042b',
                     pointStyle: false,
                     data: gridPower,
+                },
+                {
+                    label: 'EV DC',
+                    backgroundColor: '#095b07',
+                    borderColor: '#095b07',
+                    pointStyle: false,
+                    data: evDcPower,
+                },
+                {
+                    label: 'EV AC',
+                    backgroundColor: '#e3bd20',
+                    borderColor: '#e3bd20',
+                    pointStyle: false,
+                    data: evAcPower,
                 },
             ]
         }}/>
