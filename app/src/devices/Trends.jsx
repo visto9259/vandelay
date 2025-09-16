@@ -12,7 +12,6 @@ import {
 import {Bar, Line} from "react-chartjs-2";
 import {DeviceService} from "../chorus/index.js";
 import dayjs from "dayjs";
-import 'chartjs-adapter-dayjs-4/dist';
 
 ChartJS.register(
     CategoryScale,
