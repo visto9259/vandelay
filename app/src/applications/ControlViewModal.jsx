@@ -84,7 +84,7 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
                         Submit Earnings
                       </Button>
                       {control.status.status === 'EventReceived' && control.status.status === 'Active' &&(
-                        <Button className="ms-auto"variant="danger" onClick={_cancelControl}>
+                        <Button className="ms-auto" variant="danger" onClick={_cancelControl}>
                           Cancel Control
                         </Button>
                       )}
