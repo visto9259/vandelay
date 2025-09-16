@@ -14,20 +14,19 @@ export const Overview = ({device}) => {
         <Row>
             <Col>
                 <h4>Overview</h4>
+                <p className="m-1" style={{fontSize: "0.75rem"}}>id: {device.id}</p>
             </Col>
         </Row>
         <Row>
-            <Col className="m-1 border border-1 border-secondary" lg={6}>
+            <Col className="m-1 border border-1 border-secondary" lg={4}>
                 <h5>System Details:</h5>
                 <p className="mb-1">{device.model} {device.color}</p>
                 <p className="mb-1">{device.address.freeformAddress}</p>
                 <p className="mb-1">Boot date: {dayjs(device.bootDate).tz(dcbel.timeZone).format('LLL')}</p>
             </Col>
-        </Row>
-        <Row>
             <Col className="m-1 border border-1 border-secondary" lg={6}>
                 <h5>Configuration:</h5>
-                <Table borderless>
+                <Table size="sm" borderless>
                     <tbody>
                         {device.configuration.dcbel && (
                             <tr>
@@ -47,6 +46,14 @@ export const Overview = ({device}) => {
                                 </tr>
                             </>
                         )}
+                        {device.configuration.ev && device.configuration.ev.map((ev, i) => (
+                            <>
+                                <tr key={i}>
+                                    <td>EV{i+1}:</td>
+                                    <td>{ev.make} {ev.model} {ev.year}</td>
+                                </tr>
+                            </>
+                        ))}
                         {device.configuration.tariff && (
                             <>
                                 <tr>
