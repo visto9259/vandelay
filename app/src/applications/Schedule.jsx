@@ -21,18 +21,16 @@ export const Schedule = ({application}) => {
   const [showViewModal, setShowViewModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [control, setControl] = useState(null);
-  const [refresh, setRefesh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const manifest = useSelector(state => state.chorus.manifest);
 
   useEffect(() => {
     if (installationId !== null || refresh) {
-      if (refresh) {setRefesh(false);}
+      if (refresh) {setRefresh(false);}
       setShowSpinner(true);
       const params = new URLSearchParams();
       const now = new Date();
-      const fromDate = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
       const toDate = new Date(now.getTime() + 5*24*3600*1000);
-      //params.append('fromDate', fromDate.toISOString());
       params.append('toDate', toDate.toISOString());
       applicationService.getControls(application.id, installationId, params).then((controls) => {
         if (controls.length) {
@@ -165,7 +163,7 @@ export const Schedule = ({application}) => {
         </Row>
           <Stack direction="horizontal" gap={3}>
             <Button className="mx-1" variant="primary" onClick={() => {setShowAddModal(true)}}>New Schedule</Button>
-            <Button className="ms-auto" variant="outline-primary" onClick={() => {setRefesh(true)}}><ArrowClockwise/></Button>
+            <Button className="ms-auto" variant="outline-primary" onClick={() => {setRefresh(true)}}><ArrowClockwise/></Button>
           </Stack>
         <hr/>
         <Row>
