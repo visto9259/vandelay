@@ -73,7 +73,7 @@ export const Telemetry = ({deviceId, device}) => {
               <p className="mb-1">Voltage: {hem.voltage ? parseFloat(hem.voltage).toFixed(2)+ 'V' : 'No data'}</p>
               <p className="mb-1">L1 Current: {parseFloat(hem.curL1).toFixed(2)} A</p>
               <p className="mb-1">L2 Current: {parseFloat(hem.curL2).toFixed(2)} A</p>
-              <p>Net Zero: {netZero.toFixed(2)}%</p>
+              <p>Grid Free: {netZero.toFixed(2)}%</p>
             </Col>
             <Col className="m-1 border border-1 border-secondary">
               <h6>ESS</h6>
@@ -111,10 +111,12 @@ export const Telemetry = ({deviceId, device}) => {
               <Col className="m-1 border border-1 border-secondary">
                 <h6>EV AC</h6>
                 {evAC && (
-                  <>
-                  <p className="mb-1">State: {evAC.state}</p>
-                  <p className="mb-1">Power: {parseFloat(evAC.power).toFixed(2)} kW</p>
-                  </>
+                    <>
+                        <p className="mb-1">State: {evAC.state}</p>
+                        <p className="mb-1">Power: {parseFloat(evAC.power).toFixed(2)} kW</p>
+                        <p className="mb-1">Current: {parseFloat(evAC.current)} A</p>
+                        <p className="mb-1">Voltage: {parseFloat(evAC.voltage)} V</p>
+                    </>
                 )}
                 {!evAC && (
                   <>
@@ -126,9 +128,13 @@ export const Telemetry = ({deviceId, device}) => {
               <h6>EV DC</h6>
               {evDC && (
                 <>
-                  <p className="mb-1">State: {evDC.state}</p>
-                  <p className="mb-1">Power: {parseFloat(evDC.power).toFixed(2)} kW</p>
-                  <p className="mb-1">SoC: {evDC.soc}%</p>
+                    <p className="mb-1">State: {evDC.state}</p>
+                    <p className="mb-1">Power: {parseFloat(evDC.power).toFixed(2)} kW</p>
+                    <p className="mb-1">Power Reserve: {evDC.powerReserve} kWh</p>
+                    <p className="mb-1">Energy Remaining: {parseFloat(evDC.energyRemaining/1000)} kWh</p>
+                    <p className="mb-1">SoC: {evDC.soc}%</p>
+                    <p className="mb-1">Voltage: {parseFloat(evDC.voltage)} V</p>
+                    <p className="mb-1">Current: {parseFloat(evDC.current)} A</p>
                 </>
               )}
               {!evDC && (
