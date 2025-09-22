@@ -10,7 +10,7 @@ const applicationService = new ApplicationService();
 
 export const Enroll = () => {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const installationId = searchParams.get('installationid') || searchParams.get('installationId');
   const applications = useSelector(state => state.applications.applications);
@@ -29,16 +29,24 @@ export const Enroll = () => {
   const installation = _findInstallation(installationId);
 
   const _onSubmit = (values) => {
-    setShow(true);
+    setShowSpinner(true);
+      /**
+       * For now, until the enrollment process in fully available, just fake it
+       */
+    setTimeout(() =>{
+        setShowSpinner(false);
+        navigate(`/enroll/complete/123?name=${values.name}`);
+    }, 1500)
+
     applicationService.updateInstallationState(installation.appId, installationId, 'Enrolled').then(() => {
       console.log('success');
-      setShow(false);
+      setShowSpinner(false);
       navigate(`/enroll/complete/${installationId}?name=${name}`);
     })
     console.log(values);
   }
 
-
+/*
   if (!installationId || !_installationIdValid(installationId)) {
     return (
       <Row>
@@ -75,7 +83,7 @@ export const Enroll = () => {
       </Row>
     )
   }
-  /*
+
   if (installation.status === 'Installed' && installation.configuration.state === 'Suspended') {
     return (
       <Row>
@@ -89,7 +97,7 @@ export const Enroll = () => {
    */
   return (
     <>
-      <Spinner show={show} text={'Submitting request...'}/>
+      <Spinner show={showSpinner} text={'Submitting request...'}/>
       <Row>
         <Col>
           <h2>Welcome to Vandelay Energy</h2>
@@ -110,7 +118,7 @@ export const Enroll = () => {
             }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label column={'sm'}>Name</Form.Label>
                   <Form.Control required type="text" placeholder="Enter name" value={values.name} onChange={handleChange} onBlur={handleBlur}/>
                 </Form.Group>
                 <Form.Check required className="my-2" type="checkbox" id="terms"

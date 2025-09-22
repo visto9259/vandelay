@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Row} from "react-bootstrap";
+import {Col, Image, Row} from "react-bootstrap";
 import {useParams, useSearchParams} from "react-router";
 import {useSelector} from "react-redux";
 
@@ -14,17 +14,30 @@ export const EnrollComplete = () => {
     })
     return foundItem === undefined ? null : foundItem;
   }
-  const installation = _findInstallation(installationId);
-  const application = applications.find((item) => item.id === installation.appId);
-  const version = application.versions.find((item) => item.id === installation.versionId);
+  //const installation = _findInstallation(installationId);
+  //const application = applications.find((item) => item.id === installation.appId);
+  //oconst version = application.versions.find((item) => item.id === installation.versionId);
+
+    /**
+     * For now fake it
+     */
 
   return (
-    <Row>
-      <Col>
-        <p>Congratulations {searchParams.get('name')}!</p>
-        <p>You are now enrolled into the {version.appName} program.</p>
-      </Col>
-    </Row>
+      <>
+      <Row>
+          <Col>
+              <p>Congratulations {searchParams.get('name')}!</p>
+              <p>You are now enrolled into the Vandelay Energy program.</p>
+              <p>To activate the program, go to the Vandelay Energy app in the dcbel mobile portal
+                  and grant access to your Home Energy Station.</p>
+          </Col>
+      </Row>
+      <Row>
+          <Col className="text-center">
+              <Image fluid width='50%' height='50%' src='/dist/grant.jpg' alt='Grant' />
+          </Col>
+      </Row>
+          </>
   );
 
 };
