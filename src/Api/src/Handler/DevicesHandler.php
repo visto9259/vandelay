@@ -35,7 +35,9 @@ readonly class DevicesHandler extends AbstractHandler
             ], 400);
         }
         $applicationId = $queryParams['applicationId'];
-        $installations = $this->chorusService->getAppService()->getAppInstallations($applicationId);
+        $installations = $this->chorusService->getAppService()->getAppInstallations($applicationId, [
+            'status' => 'installed',
+        ]);
         //$groups  = $this->chorusService->getGroupService()->getGroups();
         $devices = [];
         /** @var array $installation */
