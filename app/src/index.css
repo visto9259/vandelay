@@ -89,4 +89,8 @@ button:focus-visible {
   z-index: 2001;
 }
 
+.vandelay-smaller-text {
+    font-size: 0.75rem;
+}
+
 
