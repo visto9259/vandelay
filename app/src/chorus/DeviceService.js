@@ -31,7 +31,7 @@ function DeviceService() {
    * @return {Promise<Array | void>}
    */
   this.getDevices = function (applicationId) {
-    const params = new URLSearchParams(applicationId);
+    const params = new URLSearchParams();
     params.append("applicationId", applicationId);
     return baseService.get('/api/devices'+'?'+params.toString()).then((response) => {
       return response.getData();
