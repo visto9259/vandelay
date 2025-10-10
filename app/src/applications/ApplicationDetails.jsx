@@ -42,7 +42,7 @@ export const ApplicationDetails = () => {
     <>
       <Row className="mb-3">
         <h3>{application.versions[0].appName}</h3>
-        <p className="my-1">Version: {application.versions[0].version}. Released: {dayjs(application.versions[0].release).format('LL')}</p>
+        <p className="my-1 vandelay-smaller-text">Version: {application.versions[0].version}. Released: {dayjs(application.versions[0].release).format('LL')}</p>
       </Row>
       <Row>
         <Col md={3} lg={2} className="sidebar border border-right p-0 bg-body-tertiary">
@@ -69,18 +69,10 @@ export const ApplicationDetails = () => {
                 <Nav.Item className={_navItemBackgroundColor("schedules")}>
                   <Nav.Link eventKey="schedules" className="d-flex align-items-center gap-2">
                     <BarChartSteps/>
-                    Schedules
+                    Flex Schedules
                   </Nav.Link>
                 </Nav.Item>
                 <hr className="my-1"/>
-                {/*}
-                <Nav.Item className={_navItemBackgroundColor("configure")}>
-                  <Nav.Link disabled eventKey="configure" className="d-flex align-items-center gap-2">
-                    <Gear/>
-                    Configure
-                  </Nav.Link>
-                </Nav.Item>
-                {*/}
               </Nav>
             </OffcanvasBody>
           </Offcanvas>

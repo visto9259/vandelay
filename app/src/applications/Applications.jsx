@@ -20,7 +20,7 @@ function Applications() {
       <>
         <Row>
           <Col>
-            <h2>Program</h2>
+            <h2>DER Flex Program</h2>
           </Col>
         </Row>
         <Row>

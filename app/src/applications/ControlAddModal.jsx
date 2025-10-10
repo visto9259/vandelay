@@ -74,7 +74,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
                         </Alert>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="description" className="mb-3">
-                                <Form.Label>Description</Form.Label>
+                                <Form.Label>Description:</Form.Label>
                                 <Form.Control value={values.description} onChange={handleChange} onBlur={handleBlur} required type="text"
                                               placeholder="Enter a description of the control"
                                               isValid={touched.description && !errors.description} isInvalid={!!errors.description}
@@ -82,7 +82,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
                                 <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId="controlType" className="mb-3">
-                                <Form.Label>Control Type</Form.Label>
+                                <Form.Label>Control Type:</Form.Label>
                                 <Form.Select value={values.controlType} onChange={handleChange} className="mb-1"
                                              required isValid={touched.controlType && !errors.controlType} isInvalid={!!errors.controlType}>
                                     <option value="export">Grid export limit</option>
@@ -109,7 +109,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
                             </Row>
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="powerValue">
-                                    <Form.Label>Power Value (kW)</Form.Label>
+                                    <Form.Label>Power Value (kW):</Form.Label>
                                     <Form.Control min={0} max={8} value={values.powerValue} onChange={handleChange} required type="number"
                                                   placeholder="Power value"
                                                   isValid={touched.powerValue && !errors.powerValue} isInvalid={!!errors.powerValue}
@@ -117,7 +117,7 @@ export const ControlAddModal = ({show, onHide, applicationId, installationId, ma
                                     <Form.Control.Feedback type="invalid">{errors.powerValue}</Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="priority">
-                                    <Form.Label>Priority</Form.Label>
+                                    <Form.Label>Priority:</Form.Label>
                                     <Form.Select value={values.priority} onChange={handleChange} className="mb-3" required>
                                         <option value={'Mandatory'}>Mandatory</option>
                                         <option value={'Provisional'}>Provisional</option>

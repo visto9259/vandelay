@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Form, Row, Stack, Table} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, Row, Stack, Table} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {ApplicationService} from "../chorus/index.js";
 import dayjs from "dayjs";
@@ -137,6 +137,7 @@ export const Schedule = ({application}) => {
   return (
     <>
       <Spinner show={showSpinner}/>
+        <h4>Flex Control Schedules</h4>
       {application.installations.length === 0 && (
         <Row>
           <Col>
@@ -151,18 +152,21 @@ export const Schedule = ({application}) => {
             <Form>
               <Form.Group as={Row} controlId="selectDevice">
                 <Col>
-                  <Form.Select onChange={_onSelect} value={installationId}>
-                    {application.installations.map((installation) => (
-                      <option key={installation.id} value={installation.id}>{_getDevice(installation.deviceId).serialNumber}</option>
-                    ))}
-                  </Form.Select>
+                    <FormGroup controlId="selectDevice">
+                        <Form.Label>Select a system:</Form.Label>
+                        <Form.Select onChange={_onSelect} value={installationId}>
+                            {application.installations.map((installation) => (
+                                <option key={installation.id} value={installation.id}>{_getDevice(installation.deviceId).serialNumber}</option>
+                            ))}
+                        </Form.Select>
+                    </FormGroup>
                 </Col>
               </Form.Group>
             </Form>
           </Col>
         </Row>
           <Stack direction="horizontal" gap={3}>
-            <Button className="mx-1" variant="primary" onClick={() => {setShowAddModal(true)}}>New Schedule</Button>
+            <Button className="mx-1" variant="primary" onClick={() => {setShowAddModal(true)}}>New Control Schedule</Button>
             <Button className="ms-auto" variant="outline-primary" onClick={() => {setRefresh(true)}}><ArrowClockwise/></Button>
           </Stack>
         <hr/>

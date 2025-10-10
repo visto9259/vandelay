@@ -73,7 +73,7 @@ export const Overview = ({application}) => {
       <Row>
         <Col>
             <Stack direction="horizontal">
-                <h4>Installations:</h4>
+                <h4>HES Installations:</h4>
                 <Button size="sm" variant="outline-primary" className="ms-auto" onClick={_onRefreshClick}><ArrowClockwise/></Button>
             </Stack>
             <Installations installations={application.installations}/>

@@ -40,7 +40,7 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
         </Modal.Header>
         <Modal.Body>
             <p className="mb-1"><strong>Description:</strong> {control.details.description}</p>
-            <p style={{fontSize: '0.75rem'}} className="mb-1 fw-light"><strong>id:</strong> {control.id}</p>
+            <p className="mb-1 fw-light vandelay-smaller-text"><strong>id:</strong> {control.id}</p>
             <p className="mb-1"><strong>Created on:</strong> {dayjs(control.creationTime).format('LLL')}</p>
             <p className="mb-1"><strong>Starts on:</strong> {dayjs(control.interval.start).format('lll')}&nbsp;
                 <strong>Duration:</strong> {control.interval.duration} secs.
@@ -72,23 +72,18 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
             }} onSubmit={_onSubmitEarnings}>
               {({values, handleChange, handleSubmit}) => (
                 <Form onSubmit={handleSubmit} className="mb-3" noValidate>
-                  <Form.Group controlId="earnings" className="mb-3">
-                    <Form.Label><strong>Earnings:</strong></Form.Label>
-                    <Form.Control type="text"
-                                  placeholder={control.status.status === 'EventCompleted' ? 'Final Earnings' : 'Running Earnings'}
-                                  onChange={handleChange} value={values.earnings}/>
-                  </Form.Group>
-                  <Row>
                     <Stack direction="horizontal" gap={3}>
-                      <Button className="mt-2" variant="primary" type="submit">
-                        Submit Earnings
-                      </Button>
-                      {control.status.status === 'EventReceived' && control.status.status === 'Active' &&(
-                        <Button className="ms-auto" variant="danger" onClick={_cancelControl}>
-                          Cancel Control
+                        <Form.Group controlId="earnings" className="mb-3">
+                            <Form.Label><strong>Earnings:</strong></Form.Label>
+                            <Form.Control type="text"
+                                          placeholder={control.status.status === 'EventCompleted' ? 'Final Earnings' : 'Running Earnings'}
+                                          onChange={handleChange} value={values.earnings}/>
+                        </Form.Group>
+                        <Button className="mt-2" variant="primary" type="submit">
+                            Send
                         </Button>
-                      )}
                     </Stack>
+                  <Row>
                   </Row>
                 </Form>
               )}
@@ -96,6 +91,11 @@ export const ControlViewModal = ({show, control, appplicationId, installationId,
           )}
         </Modal.Body>
           <Modal.Footer>
+              {(control.status.status === 'EventReceived' || control.status.status === 'Active') &&(
+                  <Button className="me-auto" variant="danger" onClick={_cancelControl}>
+                      Cancel Control
+                  </Button>
+              )}
               <Button variant="outline-primary" onClick={onHide}>Close</Button>
           </Modal.Footer>
       </Modal>
