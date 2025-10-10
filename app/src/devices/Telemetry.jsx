@@ -3,6 +3,7 @@ import {DeviceService} from "../chorus/index.js";
 import {Spinner} from "../components/index.js";
 import {Col, Row} from "react-bootstrap";
 import dayjs from 'dayjs';
+import {min} from "@popperjs/core/lib/utils/math.js";
 
 const deviceService = new DeviceService();
 
@@ -44,7 +45,7 @@ export const Telemetry = ({device}) => {
   const {ess, pv, ev} = dcbel;
   const homePower = parseFloat(home.power)/1000;
   const hemPower = parseFloat(hem.power)/1000;
-  const netZero = (homePower-hemPower)/homePower*100;
+  const netZero = Math.min((homePower-hemPower)/homePower*100, 100);
   const essPower = ess ? ess[0].power/1000 : 0;
   const pvPower = pv ? pv[0].power/1000 : 0;
   const evAC = ev ? ev.find((e) => e.currentType === 'AC') : null;
@@ -65,7 +66,8 @@ export const Telemetry = ({device}) => {
               <h6>Home</h6>
               <p className="mb-1">Load: {homePower.toFixed(2)} kW</p>
               <p className="mb-1">Voltage: {parseFloat(home.voltage).toFixed(2)} V</p>
-              <p>Current: {parseFloat(home.current).toFixed(2)} A</p>
+              <p className="mb-1">Current: {parseFloat(home.current).toFixed(2)} A</p>
+              <p className="mb-1">Self sufficient: {netZero.toFixed(2)}%</p>
             </Col>
             <Col className="m-1 border border-1 border-secondary">
               <h6>Grid</h6>
@@ -73,7 +75,6 @@ export const Telemetry = ({device}) => {
               <p className="mb-1">Voltage: {hem.voltage ? parseFloat(hem.voltage).toFixed(2)+ 'V' : 'No data'}</p>
               <p className="mb-1">L1 Current: {parseFloat(hem.curL1).toFixed(2)} A</p>
               <p className="mb-1">L2 Current: {parseFloat(hem.curL2).toFixed(2)} A</p>
-              <p>Grid Free: {netZero.toFixed(2)}%</p>
             </Col>
             <Col className="m-1 border border-1 border-secondary">
               <h6>ESS</h6>

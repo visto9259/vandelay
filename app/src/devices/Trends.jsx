@@ -92,11 +92,11 @@ export const Trends = ({device}) => {
                 setGridPower(data.map(item => item.data.hem.power/1000));
                 setEvAcPower(data.map((item) => {
                     const evAC = item.data.dcbel.ev.filter(item => item.currentType === 'AC');
-                    return evAC[0].power ? evAC[0].power/1000 : 0;
+                    return evAC.length>0 ? evAC[0].power/1000 : 0;
                 }));
                 setEvDcPower(data.map((item) => {
                     const evDC = item.data.dcbel.ev.filter(item => item.currentType === 'DC');
-                    return evDC[0].power ? evDC[0].power/1000 : 0;
+                    return evDC.length>0 ? evDC[0].power/1000 : 0;
                 }));
                 setLastUpdate(dayjs().tz(timeZone).format('HH:mm:ss Z'));
             })

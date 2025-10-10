@@ -16,7 +16,7 @@ function Devices() {
       {loaded && (
         <Row>
           <Col>
-            <h2>Available Systems</h2>
+            <h2>Available Home Energy Systems</h2>
             <Table striped bordered hover>
               <thead>
               <tr>
