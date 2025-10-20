@@ -30,7 +30,7 @@ export const EventViewModal = ({show, event, onHide}) => {
           <Col>
             <p>{dayjs(event.content.timeStamp).format('lll')}</p>
             <p>{event.content.controlId}</p>
-            <p>{_getDevice(event.content.deviceId).serialNumber}</p>
+            <p>{_getDevice(event.content.deviceId) === undefined ? (<em>{event.content.deviceId}</em>) : _getDevice(event.content.deviceId).serialNumber}</p>
             <p>{event.content.status}</p>
           </Col>
         </Modal.Body>
