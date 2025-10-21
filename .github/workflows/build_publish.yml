@@ -75,7 +75,7 @@ jobs:
           IS-LATEST-TAG: ${{ github.ref == steps.latest-semver.outputs.tag-ref }}
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags:
+          tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
