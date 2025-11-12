@@ -45,12 +45,25 @@ export const Telemetry = ({device}) => {
   const {ess, pv, ev} = dcbel;
   const homePower = parseFloat(home.power)/1000;
   const hemPower = parseFloat(hem.power)/1000;
-  const netZero = Math.min((homePower-hemPower)/homePower*100, 100);
   const essPower = ess ? ess[0].power/1000 : 0;
   const pvPower = pv ? pv[0].power/1000 : 0;
   const evAC = ev ? ev.find((e) => e.currentType === 'AC') : null;
   const evDC = ev ? ev.find((e) => e.currentType === 'DC') : null;
-  return (
+
+  const _calculatePrivateGrid = () => {
+      let load = home.power;
+      if (evAC && evAC.state === 'Charging') {
+          load += evAC.power;
+      }
+      if (evDC && evDC.state === 'Charging') {
+          load += evDC.power;
+      }
+      return Math.min((load - hem.power)/load*100, 100);
+    }
+
+    const netZero = _calculatePrivateGrid();
+
+    return (
     <>
       {loading && <Spinner show text={'Loading telemetry...'}/>}
       {!loading &&
@@ -67,14 +80,20 @@ export const Telemetry = ({device}) => {
               <p className="mb-1">Load: {homePower.toFixed(2)} kW</p>
               <p className="mb-1">Voltage: {parseFloat(home.voltage).toFixed(2)} V</p>
               <p className="mb-1">Current: {parseFloat(home.current).toFixed(2)} A</p>
-              <p className="mb-1">Self sufficient: {netZero.toFixed(2)}%</p>
             </Col>
             <Col className="m-1 border border-1 border-secondary">
               <h6>Grid</h6>
-              <p className="mb-1">Power: {hemPower.toFixed(2)} kW</p>
+              <p className="mb-1">Power: <span className={hem.power>0 ? "text-danger fw-bold" : "text-success fw-bold" }>{hemPower.toFixed(2)} kW</span></p>
               <p className="mb-1">Voltage: {hem.voltage ? parseFloat(hem.voltage).toFixed(2)+ 'V' : 'No data'}</p>
               <p className="mb-1">L1 Current: {parseFloat(hem.curL1).toFixed(2)} A</p>
               <p className="mb-1">L2 Current: {parseFloat(hem.curL2).toFixed(2)} A</p>
+                <p className="mb-1">Private Grid: <span className={(netZero>=85) ? "text-success fw-bold"
+                    : (netZero <85 && netZero >=25) ? "text-warning fw-bold"
+                        : "text-danger fw-bold"
+                }>
+                    {netZero.toFixed(2)}%
+                </span>
+                </p>
             </Col>
             <Col className="m-1 border border-1 border-secondary">
               <h6>ESS</h6>
@@ -84,7 +103,7 @@ export const Telemetry = ({device}) => {
                     <p className="mb-1">Power: {essPower.toFixed(2)} kW</p>
                     <p className="mb-1">Voltage: {parseFloat(ess[0].voltage).toFixed(2)} V</p>
                     <p className="mb-1">SoC: {parseFloat(ess[0].soc).toFixed(2)}%</p>
-                    <p className="mb-1">Energy: {parseFloat(ess[0].energyRemaining).toFixed(2)}Wh</p>
+                    <p className="mb-1">Energy: {parseFloat(ess[0].energyRemaining/1000).toFixed(2)} kWh</p>
                   </>
                   )}
               {!ess && (
@@ -113,8 +132,8 @@ export const Telemetry = ({device}) => {
                 <h6>EV AC</h6>
                 {evAC && (
                     <>
-                        <p className="mb-1">State: {evAC.state}</p>
-                        <p className="mb-1">Power: {parseFloat(evAC.power).toFixed(2)} kW</p>
+                        <p className="mb-1">State: <span className={evAC.state === 'Charging' ? "text-warning fw-bold": ""}>{evAC.state}</span></p>
+                        <p className="mb-1">Power: {parseFloat(evAC.power/1000).toFixed(2)} kW</p>
                         <p className="mb-1">Current: {parseFloat(evAC.current)} A</p>
                         <p className="mb-1">Voltage: {parseFloat(evAC.voltage)} V</p>
                     </>
@@ -129,8 +148,13 @@ export const Telemetry = ({device}) => {
               <h6>EV DC</h6>
               {evDC && (
                 <>
-                    <p className="mb-1">State: {evDC.state}</p>
-                    <p className="mb-1">Power: {parseFloat(evDC.power).toFixed(2)} kW</p>
+                    <p className="mb-1">State: <span className={(evDC.state === 'Charging') ? "text-warning fw-bold" :
+                            (evDC.state === 'Discharging') ? "text-success fw-bold" :
+                                (evDC.state === 'Supercharging') ? "text-primary fw-bolder" : ""}>
+                            {evDC.state}
+                        </span>
+                    </p>
+                    <p className="mb-1">Power: {parseFloat(evDC.power/1000).toFixed(2)} kW</p>
                     <p className="mb-1">Power Reserve: {evDC.powerReserve} kWh</p>
                     <p className="mb-1">Energy Remaining: {parseFloat(evDC.energyRemaining/1000)} kWh</p>
                     <p className="mb-1">SoC: {evDC.soc}%</p>
